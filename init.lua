@@ -54,8 +54,6 @@ vim.smarttab = true
 -- Go to the the nvim file explorer with a new key command
 vim.keymap.set('n', '<leader>pv',vim.cmd.Ex)
 
-
-
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -79,13 +77,6 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
-  
-  -- Harpoon
-  'nvim-lua/plenary.nvim',
-  'ThePrimeagen/harpoon',
-
-  -- vim-apm
-  'ThePrimeagen/vim-apm',
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -244,9 +235,9 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
+-- [[ Harpoon ]]
 local harpoon = require('harpoon')
-
-harpoon:setup()
+harpoon:setup({})
 
 -- Harpoon shorcuts
 vim.keymap.set("n", "<leader>f", function() harpoon:list():append() end)
@@ -261,11 +252,12 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
-local apm = require("vim-apm")
+
 
 -- Vim APM
-apm:setup({})
-vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
+-- local apm = require("vim-apm")
+-- apm:setup({})
+-- vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -523,6 +515,8 @@ require('lspconfig').gopls.setup({
       },
       completeUnimported = true,
       staticcheck = true,
+      errcheck = true,
+      gosimple = true,
       -- gofumpt = true,
     }
   }
