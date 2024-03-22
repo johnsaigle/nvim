@@ -42,7 +42,6 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.o.spell = true
 
 -- https://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces#1878983
 vim.tabstop = 8
@@ -238,15 +237,6 @@ require('lazy').setup({
 -- apm:setup({})
 -- vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
 
--- [[ Setting options ]]
--- See `:help vim.o`
-
--- Set highlight on search
-vim.o.hlsearch = true
---
--- Set highlight on search
-vim.o.relativenumber = true
-vim.o.cursorline = true
 
 -- color shcheme
 vim.cmd("colorscheme rose-pine-moon")
@@ -254,53 +244,8 @@ vim.cmd("colorscheme rose-pine-moon")
 -- Change color of highlighted line 
 vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "pink"})
 vim.api.nvim_set_hl(0, 'LineNr', { fg = "gray"})
+--
 
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-
-vim.wo.colorcolumn = '120'
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -316,6 +261,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Harpoon ]]
 local harpoon = require('harpoon')
 harpoon:setup({})
+
+-- [[ Basic Keymaps ]]
+require 'keymaps'
+
+-- [[ Vim options ]]
+require 'options'
 
 -- Harpoon shorcuts
 vim.keymap.set("n", "<leader>f", function() harpoon:list():append() end)
@@ -370,7 +321,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'solidity', 'tsx', 'typescript', 'vim' },
+  ensure_installed = { 'bash', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'solidity', 'tsx', 'typescript', 'vim' },
 
   auto_install = true,
 
@@ -431,12 +382,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -492,6 +437,7 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
+  bashls = {},
   gopls = {},
   pyright = {},
   rust_analyzer = {},
@@ -520,8 +466,29 @@ require('lspconfig').gopls.setup({
       -- gofumpt = true,
     }
   }
+})
+
+-- Enable inlay hints
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+--     callback = function(args)
+--         local client = vim.lsp.get_client_by_id(args.data.client_id)
+--         if client.server_capabilities.inlayHintProvider then
+--             vim.lsp.inlay_hint.enable(args.buf, true)
+--         end
+--         -- whatever other lsp config you want
+--     end
+-- })
+
+require'lspconfig'.rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true;
+      }
+    }
+  }
 }
-)
 
 -- Setup neovim lua configuration
 require('neodev').setup()
