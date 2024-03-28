@@ -12,4 +12,12 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
+-- Paste filepath to clipboard
+vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+local function insertFullPath()
+  local filepath = vim.fn.expand('%')
+  vim.fn.setreg('+', filepath) -- write to clipboard
+end
+vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename to system clipboard ', noremap = true, silent = true })
+
 -- vim: ts=2 sts=2 sw=2 et
