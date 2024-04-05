@@ -17,6 +17,7 @@ Kickstart.nvim is a template for your own configuration.
   a guide. One possible example:
   - https://learnxinyminutes.com/docs/lua/
 
+
   And then you can explore or search through `:help lua-guide`
 
 
@@ -41,14 +42,6 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
-
--- https://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces#1878983
-vim.tabstop = 8
-vim.softtabstop = 0
-vim.expandtab = true
-vim.shiftwidth = 4
-vim.smarttab = true
 
 -- Go to the the nvim file explorer with a new key command
 vim.keymap.set('n', '<leader>pv',vim.cmd.Ex)
@@ -182,6 +175,7 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+    -- Configure highlighting for markdown. TODO probably broken
     highlight_groups = {
       ["@markup.markdown.code"] = { fg = "gold"}, --, bg = "..." },
       ["@markup.markdown.block"] = { fg = "gold"}, --, bg = "..." },
@@ -255,6 +249,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
 
 -- [[ Harpoon ]]
 local harpoon = require('harpoon')

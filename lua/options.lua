@@ -48,3 +48,15 @@ vim.o.termguicolors = true
 
 -- Enable spelling
 vim.o.spell = true
+
+-- Autoindent
+-- vim.o.autoindent = true
+vim.o.smartindent = true
+
+-- Tabs and spaces
+-- https://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces#1878983
+vim.tabstop = 8
+vim.softtabstop = 0
+vim.expandtab = true
+vim.shiftwidth = 4
+vim.smarttab = true
