@@ -10,3 +10,6 @@ Solana
 TypeScript
 u64
 u32
+clippy
+Rebase
+deserialization
