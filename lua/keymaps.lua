@@ -16,7 +16,8 @@ vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc =
 
 -- Paste filepath to clipboard
 local function insertFullPath()
-  local filepath = vim.fn.getcwd() .. vim.fn.expand('%')
+  local filepath = vim.fn.getcwd() .. '/' .. vim.fn.expand('%')
+  vim.fn.setreg('+', '') -- clear existing contents so that it doesn't get written twice
   vim.fn.setreg('+', filepath) -- write to clipboard
 end
 vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename to system clipboard ', noremap = true, silent = true })
