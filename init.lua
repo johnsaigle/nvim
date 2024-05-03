@@ -231,7 +231,6 @@ require('lazy').setup({
 -- apm:setup({})
 -- vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
 
-
 -- color scheme
 vim.cmd("colorscheme rose-pine-moon")
 
@@ -264,8 +263,11 @@ require 'options'
 -- [[ Treesitter ]]
 require 'treesitter'
 
+-- [[ GoPls ]]
+require 'gopls'
+
 -- Harpoon shorcuts
-vim.keymap.set("n", "<leader>f", function() harpoon:list():append() end)
+vim.keymap.set("n", "<leader>f", function() harpoon:list():add() end)
 vim.keymap.set("n", "<C-f>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
 vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
@@ -362,7 +364,6 @@ local on_attach = function(_, bufnr)
 end
 
 -- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
@@ -382,22 +383,6 @@ local servers = {
     },
   },
 }
-
--- Gopls configurations
-require('lspconfig').gopls.setup({
-  settings = {
-    gopls = {
-      analyses = {
-        unusedparams = true,
-      },
-      completeUnimported = true,
-      staticcheck = true,
-      errcheck = true,
-      gosimple = true,
-      -- gofumpt = true,
-    }
-  }
-})
 
 require'lspconfig'.rust_analyzer.setup{
   settings = {
