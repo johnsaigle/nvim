@@ -13,7 +13,7 @@
 
 return {
   "mrcjkb/rustaceanvim",
-  version = "4.24.0", -- May 2024 release
+  version = "4.24.0",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "mfussenegger/nvim-dap",
