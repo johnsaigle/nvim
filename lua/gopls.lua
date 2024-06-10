@@ -12,12 +12,16 @@ require('lspconfig').gopls.setup({
       completeUnimported = true,
       staticcheck = true,
       errcheck = true,
+      gocritic = true,
       gosimple = true,
       -- https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
       hints = {
         assignVariableTypes = true,
         rangeVariableTypes = true,
-      }
+      },
+      mnd = true,
+      nilerr = true,
+      usestdlibvars = true,
     }
   }
 })
