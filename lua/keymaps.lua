@@ -14,7 +14,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
-
 -- Paste filepath to clipboard
 local function insertFullPath()
   local filepath = vim.fn.getcwd() .. '/' .. vim.fn.expand('%')
@@ -26,5 +25,16 @@ vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename t
 -- Swap lines in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- J but without moving the cursor
+vim.keymap.set("n", "J", "mzJ`z")
+
+-- Ctrl d and Ctrl u but center the cursor
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- Search but center the cursor
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- vim: ts=2 sts=2 sw=2 et
