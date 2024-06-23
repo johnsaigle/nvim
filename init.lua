@@ -37,9 +37,11 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
 
--- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+--  NOTE: The keymap is added in order to allow <space> to be <leader> while in Visual mode
+-- https://neovim.discourse.group/t/how-do-i-use-space-as-the-leader-in-visual-mode/916-- Set <space> as the leader key
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -265,6 +267,9 @@ require 'treesitter'
 
 -- [[ GoPls ]]
 require 'gopls'
+--
+-- -- [[ NeoAI ]]
+require 'neoai'
 
 -- Harpoon shorcuts
 vim.keymap.set("n", "<leader>f", function() harpoon:list():add() end)
