@@ -46,7 +46,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Go to the the nvim file explorer with a new key command
-vim.keymap.set('n', '<leader>pv',vim.cmd.Ex)
+vim.keymap.set('n', '<leader>pv',vim.cmd.Ex, { desc = "open nvim file explorer" })
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
