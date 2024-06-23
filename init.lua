@@ -39,9 +39,9 @@ P.S. You can delete this when you're done too. It's your config now :)
 
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
---  NOTE: The keymap is added in order to allow <space> to be <leader> while in Visual mode
--- https://neovim.discourse.group/t/how-do-i-use-space-as-the-leader-in-visual-mode/916-- Set <space> as the leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+-- [[ Basic Keymaps ]]
+require 'keymaps'
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -255,9 +255,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Harpoon ]]
 local harpoon = require('harpoon')
 harpoon:setup({})
-
--- [[ Basic Keymaps ]]
-require 'keymaps'
 
 -- [[ Vim options ]]
 require 'options'
