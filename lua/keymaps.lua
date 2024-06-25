@@ -20,7 +20,10 @@ local function insertFullPath()
   vim.fn.setreg('+', '') -- clear existing contents so that it doesn't get written twice
   vim.fn.setreg('+', filepath) -- write to clipboard
 end
+
 vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename to system clipboard ', noremap = true, silent = true })
+-- Go to the nvim file explorer with a new key command
+vim.keymap.set('n', '<leader>pv',vim.cmd.Ex, { desc = "open nvim file explorer" })
 
 -- Swap lines in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

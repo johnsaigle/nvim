@@ -39,14 +39,9 @@ P.S. You can delete this when you're done too. It's your config now :)
 
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
--- [[ Basic Keymaps ]]
-require 'keymaps'
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
--- Go to the the nvim file explorer with a new key command
-vim.keymap.set('n', '<leader>pv',vim.cmd.Ex, { desc = "open nvim file explorer" })
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -252,6 +247,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
+-- Add files from the lua/ folder
+
+-- [[ Basic Keymaps ]]
+require 'keymaps'
+
 -- [[ Harpoon ]]
 local harpoon = require('harpoon')
 harpoon:setup({})
@@ -386,16 +386,16 @@ local servers = {
   },
 }
 
-require'lspconfig'.rust_analyzer.setup{
-  settings = {
-    ['rust-analyzer'] = {
-      diagnostics = {
-        enable = true;
-      }
-    }
-  }
-}
-
+-- require'lspconfig'.rust_analyzer.setup{
+--   settings = {
+--     ['rust-analyzer'] = {
+--       diagnostics = {
+--         enable = true;
+--       }
+--     }
+--   }
+-- }
+--
 -- Setup neovim lua configuration
 require('neodev').setup()
 
