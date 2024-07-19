@@ -7,13 +7,15 @@ require('lspconfig').gopls.setup({
       -- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
       analyses = {
         shadow = true,
-        unusedvariable = true
+        defers = true,
+        unusedparams = true,
+        unusedvariable = true,
       },
       completeUnimported = true,
-      staticcheck = true,
       errcheck = true,
       gocritic = true,
       gosimple = true,
+      staticcheck = true,
       -- https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
       hints = {
         assignVariableTypes = true,
@@ -21,6 +23,7 @@ require('lspconfig').gopls.setup({
       },
       mnd = true,
       nilerr = true,
+      nilnil = true,
       usestdlibvars = true,
     }
   }

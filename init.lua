@@ -531,7 +531,33 @@ hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_ex
 -- Quint support
 -- TODO convert this vimscript into a lua autocmd
 -- autocmd FileType quint lua vim.lsp.start({name = 'quint', cmd = {'quint-language-server', '--stdio'}, root_dir = vim.fs.dirname()})
--- au BufRead,BufNewFile *.qnt  setfiletype quint
+--  au BufRead,BufNewFile *.qnt
+--  setfiletype quint
+
+--- Install Sway LSP as a custom	server
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig.configs'
+
+-- Check if the config is already defined (useful when reloading this file)
+if not configs.sway_lsp then
+   configs.sway_lsp = {
+     default_config = {
+       cmd = {'forc-lsp'},
+       filetypes = {'sway'},
+       on_attach = on_attach,
+       init_options = {
+         -- Any initialization options
+         logging = { level = 'trace' }
+       },
+       root_dir = function(fname)
+         return lspconfig.util.find_git_ancestor(fname)
+       end;
+       settings = {};
+     };
+   }
+ end
+
+lspconfig.sway_lsp.setup{}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
