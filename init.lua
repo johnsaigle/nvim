@@ -343,15 +343,15 @@ local servers = {
   },
 }
 
--- require'lspconfig'.rust_analyzer.setup{
---   settings = {
---     ['rust-analyzer'] = {
---       diagnostics = {
---         enable = true;
---       }
---     }
---   }
--- }
+require('lspconfig').rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true;
+      }
+    }
+  }
+}
 --
 -- Setup neovim lua configuration
 require('neodev').setup()

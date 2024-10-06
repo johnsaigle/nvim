@@ -29,7 +29,7 @@ return {
   ---@type Ollama.Config
   opts = {
     -- your configuration overrides
-    model = "llama3-gradient",
+    model = "mistral-nemo",
     url = "http://127.0.0.1:11434",
     serve = {
       on_start = false,
@@ -40,12 +40,21 @@ return {
     },
     -- View the actual default prompts in ./lua/ollama/prompts.lua
     prompts = {
-      Sample_Prompt = {
-        prompt = "This is a sample prompt that receives $input and $sel(ection), among others.",
+      Summarize_Text = {
+        prompt = "Please summarize this text. Additional instructions: $input. Here is the text: $sel.",
         input_label = "> ",
-        model = "llama3-gradient",
+        model = "mistral-nemo",
         action = "display",
       }
     }
+    -- View the actual default prompts in ./lua/ollama/prompts.lua
+    -- prompts = {
+    --   Sample_Prompt = {
+    --     prompt = "This is a sample prompt that receives $input and $sel(ection), among others.",
+    --     input_label = "> ",
+    --     model = "mistral-nemo",
+    --     action = "display",
+    --   }
+    -- }
   }
 }
