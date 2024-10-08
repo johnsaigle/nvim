@@ -29,7 +29,7 @@ return {
   ---@type Ollama.Config
   opts = {
     -- your configuration overrides
-    model = "mistral-nemo",
+    model = "llama3.2",
     url = "http://127.0.0.1:11434",
     serve = {
       on_start = false,
@@ -43,7 +43,7 @@ return {
       Summarize_Text = {
         prompt = "Please summarize this text. Additional instructions: $input. Here is the text: $sel.",
         input_label = "> ",
-        model = "mistral-nemo",
+        model = "llama3.2",
         action = "display",
       }
     }
