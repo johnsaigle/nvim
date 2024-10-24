@@ -16,7 +16,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagn
 
 -- Paste filepath to clipboard
 local function insertFullPath()
-  local filepath = vim.fn.getcwd() .. '/' .. vim.fn.expand('%')
+  local filepath = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
   vim.fn.setreg('+', '') -- clear existing contents so that it doesn't get written twice
   vim.fn.setreg('+', filepath) -- write to clipboard
 end
