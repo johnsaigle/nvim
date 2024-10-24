@@ -46,6 +46,7 @@ return {
         'nilnil',
         'revive',
         'staticcheck',
+        'structcheck',
       }, -- linters to enable; empty by default
       severity = vim.diagnostic.severity.INFO, -- severity level of the diagnostics
     },
