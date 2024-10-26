@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 return {
 	-- [[Go macros]]
 	-- do err == nil check and change contents within braces
@@ -8,5 +7,5 @@ return {
 	-- comma ok pattern
 	vim.keymap.set('n', '<leader>eo', 'oif item, ok := collection[key]; !ok {<CR>}<Esc>O<Esc>'),
 	-- create new error and change contents in quotes
-	vim.keymap.set('n', '<leader>eo', 'ierrors.New("")<Esc>2F"ci"'),
+	vim.keymap.set('n', '<leader>en', 'ierrors.New("")<Esc>2F"ci"'),
 }
