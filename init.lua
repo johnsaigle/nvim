@@ -336,6 +336,7 @@ local servers = {
   bashls = {},
   pyright = {},
   rust_analyzer = {},
+  yamlls = {},
   -- solidity_ls_nomicfoundation = {},
   -- tsserver = {},
 
