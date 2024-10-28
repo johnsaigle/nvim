@@ -58,6 +58,10 @@ require('lazy').setup({
     'hrsh7th/nvim-cmp',
     dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   },
+  {
+    'https://codeberg.org/esensar/nvim-dev-container',
+    dependencies = 'nvim-treesitter/nvim-treesitter'
+  },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
@@ -229,7 +233,11 @@ require('go').setup(goconfig)
 require 'gopls'
 
 -- -- [[ NeoAI ]]
-require 'neoai'
+-- require 'neoai'
+
+
+-- [[ devcontainer support ]]
+require("devcontainer").setup{}
 
 -- Harpoon shorcuts
 vim.keymap.set("n", "<leader>f", function() harpoon:list():add() end)
