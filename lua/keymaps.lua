@@ -14,6 +14,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
+
 -- Paste filepath to clipboard
 local function insertFullPath()
   local filepath = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
@@ -39,5 +40,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- Search but center the cursor
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+
+-- Leader semicolon toggles most recent buffers
+vim.keymap.set('n', '<leader>;', '<C-^>')
 
 -- vim: ts=2 sts=2 sw=2 et
