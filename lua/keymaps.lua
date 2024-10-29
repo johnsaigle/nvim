@@ -41,7 +41,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- Leader semicolon toggles most recent buffers
+-- Toggles most recent buffers
 vim.keymap.set('n', '<leader>;', '<C-^>')
+--
+-- Toggle invlist
+vim.keymap.set('n', '<leader>,', ':set invlist<cr>')
 
 -- vim: ts=2 sts=2 sw=2 et
