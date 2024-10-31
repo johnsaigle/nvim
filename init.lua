@@ -25,7 +25,7 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
+  -- TODO: Can I have an LLM tell me how to clean this up properly? lol
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -64,7 +64,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',          opts = {} },
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -101,13 +101,13 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
-     -- char = '┊',
-     -- show_trailing_blankline_indent = true,
+      -- char = '┊',
+      -- show_trailing_blankline_indent = true,
     },
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -133,8 +133,8 @@ require('lazy').setup({
     build = ':TSUpdate',
     -- Configure highlighting for markdown. TODO probably broken
     highlight_groups = {
-      ["@markup.markdown.code"] = { fg = "gold"}, --, bg = "..." },
-      ["@markup.markdown.block"] = { fg = "gold"}, --, bg = "..." },
+      ["@markup.markdown.code"] = { fg = "gold" }, --, bg = "..." },
+      ["@markup.markdown.block"] = { fg = "gold" }, --, bg = "..." },
       -- ["@markup.raw.block.markdown"] = { fg = "gold"}, --, bg = "..." },
       -- ["@markup.raw.delimiter.markdown"] = { fg = "gold"}, --, bg = "..." },
     }
@@ -149,7 +149,7 @@ require('lazy').setup({
   -- https://github.com/ray-x/go.nvim?tab=readme-ov-file#lazynvim
   {
     "ray-x/go.nvim",
-    dependencies = {  -- optional packages
+    dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
@@ -158,13 +158,49 @@ require('lazy').setup({
       -- require("go").setup()
       require("go")
     end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
+    event = { "CmdlineEnter" },
+    ft = { "go", 'gomod' },
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
   -- Rainbow highlighting for delimiters
   {
     'HiPhish/rainbow-delimiters.nvim',
+  },
+  -- CodeQL support
+  {
+    "pwntester/codeql.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/telescope.nvim",
+      "kyazdani42/nvim-web-devicons",
+      {
+        's1n7ax/nvim-window-picker',
+        version = 'v1.*',
+        opts = {
+          autoselect_one = true,
+          include_current = false,
+          filter_rules = {
+            bo = {
+              filetype = {
+                "codeql_panel",
+                "codeql_explorer",
+                "qf",
+                "TelescopePrompt",
+                "TelescopeResults",
+                "notify",
+                "noice",
+                "NvimTree",
+                "neo-tree",
+              },
+              buftype = { 'terminal' },
+            },
+          },
+          current_win_hl_color = '#e35e4f',
+          other_win_hl_color = '#44cc41',
+        },
+      }
+    },
+    opts = {}
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -195,8 +231,8 @@ require('lazy').setup({
 vim.cmd("colorscheme rose-pine-moon")
 
 -- Change colors for current line
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "pink"})
-vim.api.nvim_set_hl(0, 'LineNr', { fg = "gray"})
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "pink" })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = "gray" })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -237,7 +273,7 @@ require 'gopls'
 
 
 -- [[ devcontainer support ]]
-require("devcontainer").setup{}
+require("devcontainer").setup {}
 
 -- Harpoon shorcuts
 vim.keymap.set("n", "<leader>f", function() harpoon:list():add() end)
@@ -356,11 +392,11 @@ local servers = {
   },
 }
 
-require('lspconfig').rust_analyzer.setup{
+require('lspconfig').rust_analyzer.setup {
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {
-        enable = true;
+        enable = true,
       }
     }
   }
@@ -446,37 +482,37 @@ local rainbow_delimiters = require 'rainbow-delimiters'
 
 ---@type rainbow_delimiters.config
 require('rainbow-delimiters.setup').setup {
-    strategy = {
-        [''] = rainbow_delimiters.strategy['global'],
-        vim = rainbow_delimiters.strategy['local'],
-    },
-    query = {
-        [''] = 'rainbow-delimiters',
-        lua = 'rainbow-blocks',
-    },
-    priority = {
-        [''] = 110,
-        lua = 210,
-    },
-    highlight = {
-        'RainbowDelimiterRed',
-        'RainbowDelimiterYellow',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterOrange',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterViolet',
-        'RainbowDelimiterCyan',
-    },
+  strategy = {
+    [''] = rainbow_delimiters.strategy['global'],
+    vim = rainbow_delimiters.strategy['local'],
+  },
+  query = {
+    [''] = 'rainbow-delimiters',
+    lua = 'rainbow-blocks',
+  },
+  priority = {
+    [''] = 110,
+    lua = 210,
+  },
+  highlight = {
+    'RainbowDelimiterRed',
+    'RainbowDelimiterYellow',
+    'RainbowDelimiterBlue',
+    'RainbowDelimiterOrange',
+    'RainbowDelimiterGreen',
+    'RainbowDelimiterViolet',
+    'RainbowDelimiterCyan',
+  },
 }
 
 local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
+  "RainbowRed",
+  "RainbowYellow",
+  "RainbowBlue",
+  "RainbowOrange",
+  "RainbowGreen",
+  "RainbowViolet",
+  "RainbowCyan",
 }
 
 -- Configure IBL hooks to use rainbow highlighting for indentation lines
@@ -484,13 +520,13 @@ local hooks = require "ibl.hooks"
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+  vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+  vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+  vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+  vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+  vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+  vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+  vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
 end)
 
 vim.g.rainbow_delimiters = { highlight = highlight }
@@ -510,24 +546,24 @@ local configs = require 'lspconfig.configs'
 
 -- Check if the config is already defined (useful when reloading this file)
 if not configs.sway_lsp then
-   configs.sway_lsp = {
-     default_config = {
-       cmd = {'forc-lsp'},
-       filetypes = {'sway'},
-       on_attach = on_attach,
-       init_options = {
-         -- Any initialization options
-         logging = { level = 'trace' }
-       },
-       root_dir = function(fname)
-         return lspconfig.util.find_git_ancestor(fname)
-       end;
-       settings = {};
-     };
-   }
- end
+  configs.sway_lsp = {
+    default_config = {
+      cmd = { 'forc-lsp' },
+      filetypes = { 'sway' },
+      on_attach = on_attach,
+      init_options = {
+        -- Any initialization options
+        logging = { level = 'trace' }
+      },
+      root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname)
+      end,
+      settings = {},
+    },
+  }
+end
 
-lspconfig.sway_lsp.setup{}
+lspconfig.sway_lsp.setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
