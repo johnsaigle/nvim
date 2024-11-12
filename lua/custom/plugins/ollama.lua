@@ -40,8 +40,21 @@ return {
     },
     -- View the actual default prompts in ./lua/ollama/prompts.lua
     prompts = {
-      Summarize_Text = {
-        prompt = "Please summarize this text. Additional instructions: $input. Here is the text: $sel.",
+      -- Ourobouros 
+      Detect_LLM = {
+        prompt = "Do you think the following text was written by an LLM? If so, explain why. Here is the text: $sel",
+        input_label = "> ",
+        model = "llama3.2",
+        action = "display",
+      },
+      Document_Block = {
+        prompt = "This $ftype code block needs better documentation. Summarize the code concisely at a high-level. Format your response in the correct commenting convention for the programming language. Make sure to document security-related functionality. Avoid chatter. Group your comments together so that can be added to the top of the code block. Here is the code that needs commenting: $sel.",
+        input_label = "> ",
+        model = "llama3.2",
+        action = "display",
+      },
+      Summarize_Commits = {
+        prompt = "The following text contains a series of git commit messages. Summarize the text as a concise project update. Avoid commentary. Here is the text: $sel",
         input_label = "> ",
         model = "llama3.2",
         action = "display",
@@ -52,15 +65,8 @@ return {
         model = "llama3.2",
         action = "display",
       },
-      Document_Block = {
-        prompt = "This $ftype code block needs better documentation. Summarize the code concisely at a high-level. Format your response in the correct commenting convention for the programming language. Make sure to document security-related functionality. Avoid chatter. Do not include the source code in your response. Do not summarize the work you have done. Group your comments together so that can be added to the top of the code block. Here is the code that needs commenting: $sel.",
-        input_label = "> ",
-        model = "llama3.2",
-        action = "display",
-      },
-      -- Ourobouros 
-      Detect_LLM = {
-        prompt = "Do you think the following text was written by an LLM? If so, explain why. Here is the text: $sel",
+      Summarize_Text = {
+        prompt = "Please summarize this text. Additional instructions: $input. Here is the text: $sel.",
         input_label = "> ",
         model = "llama3.2",
         action = "display",
