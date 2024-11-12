@@ -58,6 +58,13 @@ return {
         model = "llama3.2",
         action = "display",
       },
+      -- Ourobouros 
+      Detect_LLM = {
+        prompt = "Do you think the following text was written by an LLM? If so, explain why. Here is the text: $sel",
+        input_label = "> ",
+        model = "llama3.2",
+        action = "display",
+      },
     }
     -- View the actual default prompts in ./lua/ollama/prompts.lua
     -- prompts = {
