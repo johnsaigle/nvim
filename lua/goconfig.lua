@@ -5,7 +5,7 @@ return {
   -- It is import to set ALL values in your own config if set value to true otherwise the plugin may not work
   go='go', -- go command, can be go[default] or e.g. go1.18beta1
   goimports ='gopls', -- goimports command, can be gopls[default] or either goimports or golines if need to split long lines
-  gofmt = 'gopls', -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
+  -- gofmt = 'gopls', -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
   fillstruct = 'gopls',  -- set to fillstruct if gopls fails to fill struct
   max_line_len = 0, -- max line length in golines format, Target maximum line length for golines
   tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
@@ -55,7 +55,8 @@ return {
                   -- true: default nvim setup
     hdlr = false, -- hook lsp diag handler and send diag to quickfix
     underline = true,
-    virtual_text = { spacing = 2, prefix = '' }, -- virtual text setup
+    virtual_text = { spacing = 2}, -- virtual text setup
+    -- virtual_text = { spacing = 2, prefix = '' }, -- virtual text setup
     signs = {'', '', '', ''},  -- set to true to use default signs, an array of 4 to specify custom signs
     update_in_insert = false,
   },
