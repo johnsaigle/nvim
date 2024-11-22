@@ -9,9 +9,8 @@ return {
     vendors = {
       ---@type AvanteProvider
       ollama = {
-        ['local'] = true,
-        endpoint = "http://nibbler:11434/v1",
-        -- endpoint = "http://localhost:11434/v1",
+        -- endpoint = "http://nibbler:11434/v1",
+        endpoint = "http://localhost:11434/v1",
         model = "qwen2.5-coder:7b-instruct-q8_0",
         parse_curl_args = function(opts, code_opts)
           return {
