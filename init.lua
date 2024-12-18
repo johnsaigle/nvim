@@ -268,10 +268,6 @@ require('go').setup(goconfig)
 -- [[ GoPls ]]
 require 'gopls'
 
--- -- [[ NeoAI ]]
--- require 'neoai'
-
-
 -- [[ devcontainer support ]]
 require("devcontainer").setup {}
 
