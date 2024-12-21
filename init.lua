@@ -53,6 +53,30 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
+  -- call tree
+  {
+    'ldelossa/litee.nvim',
+    event = "VeryLazy",
+    opts = {
+      notify = { enabled = false },
+      panel = {
+        orientation = "bottom",
+        panel_size = 10,
+      },
+    },
+    config = function(_, opts) require('litee.lib').setup(opts) end
+  },
+
+  {
+    'ldelossa/litee-calltree.nvim',
+    dependencies = 'ldelossa/litee.nvim',
+    event = "VeryLazy",
+    opts = {
+      on_open = "panel",
+      map_resize_keys = false,
+    },
+    config = function(_, opts) require('litee.calltree').setup(opts) end
+  },
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -387,18 +411,30 @@ local servers = {
   },
 }
 
+-- Rust LSP configuration
 require('lspconfig').rust_analyzer.setup {
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {
         enable = true,
-      }
+        experimental = {
+          enable = true
+        }
+      },
+      -- Note the below doesn't seem to work: only `cargo check` runs
+      check = {
+        enable = true,
+        -- command = "clippy",
+        command = "cargo clippy --workspace --message-format=json --all-targets"
+      },
+      checkOnSave = {
+        enable = true,
+        -- command = "clippy",
+        command = "cargo clippy --workspace --message-format=json --all-targets"
+      },
     }
   }
 }
---
--- Setup neovim lua configuration
-require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
