@@ -5,6 +5,7 @@ return {
   version = false, -- set this if you want to always pull the latest change
   opts = {
     provider = "ollama",
+    auto_focus_sidebar = false,
     use_absolute_path = true,
     vendors = {
       ---@type AvanteProvider
