@@ -26,6 +26,14 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- TODO: Can I have an LLM tell me how to clean this up properly? lol
+  -- cargo-expand: local development mode
+  -- {
+  --     dir = '~/coding/cargo-expand.nvim',
+  --     config = function()
+  --         require('cargo-expand').setup()
+  --     end
+  -- },
+  'johnsaigle/cargo-expand.nvim',
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -227,14 +235,6 @@ require('lazy').setup({
     opts = {}
   },
 
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-  --
-  --
-
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
@@ -245,11 +245,6 @@ require('lazy').setup({
   --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
   { import = 'custom.plugins' },
 }, {})
-
--- Vim APM
--- local apm = require("vim-apm")
--- apm:setup({})
--- vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
 
 -- color scheme
 vim.cmd("colorscheme rose-pine-moon")
@@ -308,6 +303,10 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+local cargo_expand = require('cargo-expand.expand')
+require('cargo-expand').setup({})
+vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand"})
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
