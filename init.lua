@@ -24,8 +24,9 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
+-- TODO: Can I have an LLM tell me how to clean this up properly? lol
 require('lazy').setup({
-  -- TODO: Can I have an LLM tell me how to clean this up properly? lol
+  
   -- cargo-expand: local development mode
   -- {
   --     dir = '~/coding/cargo-expand.nvim',
@@ -34,6 +35,7 @@ require('lazy').setup({
   --     end
   -- },
   'johnsaigle/cargo-expand.nvim',
+  'johnsaigle/github-permalink.nvim',
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -304,9 +306,15 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
+-- Cargo Expand 
 local cargo_expand = require('cargo-expand.expand')
 require('cargo-expand').setup({})
 vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand"})
+
+-- GitHub Link
+local github_permalink = require('github-permalink')
+require('github-permalink').setup({})
+vim.keymap.set("v", "<leader>gg", github_permalink.generate_permalink, { desc = "[G]itHub Permalink"})
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
