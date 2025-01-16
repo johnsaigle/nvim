@@ -19,23 +19,16 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 -- TODO: Can I have an LLM tell me how to clean this up properly? lol
 require('lazy').setup({
-  
-  -- cargo-expand: local development mode
-  -- {
-  --     dir = '~/coding/cargo-expand.nvim',
-  --     config = function()
-  --         require('cargo-expand').setup()
-  --     end
-  -- },
+  -- My plugins
   'johnsaigle/cargo-expand.nvim',
   'johnsaigle/github-permalink.nvim',
+  { -- Semgrep Diagnostics
+    -- dir = '~/coding/semgrep-diagnostics.nvim',
+    'johnsaigle/semgrep-diagnostics.nvim',
+    dependencies = { "jose-elias-alvarez/null-ls.nvim" },
+  },
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -46,8 +39,6 @@ require('lazy').setup({
 
   'ThePrimeagen/rfceez',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -56,7 +47,6 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -311,10 +301,19 @@ local cargo_expand = require('cargo-expand.expand')
 require('cargo-expand').setup({})
 vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand"})
 
--- GitHub Link
+-- GitHub Permalink
 local github_permalink = require('github-permalink')
 require('github-permalink').setup({})
 vim.keymap.set("v", "<leader>gg", github_permalink.generate_permalink, { desc = "[G]itHub Permalink"})
+
+-- Semgrep Diagnostics
+local semgrep_diagnostics = require('semgrep-diagnostics')
+require('semgrep-diagnostics').setup({
+      filetypes = {"rust", "go", "solidity"},
+      semgrep_config = "~/coding/semgrep-rules-ar",
+      default_severity = vim.diagnostic.severity.INFO,
+})
+vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep Diagnostics"})
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
