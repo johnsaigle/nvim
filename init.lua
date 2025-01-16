@@ -25,7 +25,7 @@ require('lazy').setup({
   'johnsaigle/cargo-expand.nvim',
   'johnsaigle/github-permalink.nvim',
   { -- Semgrep Diagnostics
-    -- dir = '~/coding/semgrep-diagnostics.nvim',
+    dir = '~/coding/semgrep-diagnostics.nvim',
     'johnsaigle/semgrep-diagnostics.nvim',
     dependencies = { "jose-elias-alvarez/null-ls.nvim" },
   },
@@ -227,7 +227,13 @@ require('lazy').setup({
   },
   { -- Trouble configuration (better experience with diagnostics)
     "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    opts = {
+      win = {
+        wo = {
+          wrap = true,
+        },
+      },
+    },
     cmd = "Trouble",
     keys = {
       {
@@ -352,10 +358,15 @@ vim.keymap.set("v", "<leader>gg", github_permalink.generate_permalink, { desc = 
 local semgrep_diagnostics = require('semgrep-diagnostics')
 require('semgrep-diagnostics').setup({
   filetypes = { "rust", "go", "solidity" },
-  semgrep_config = "~/coding/semgrep-rules-ar",
+  semgrep_config = {
+    "p/trailofbits",
+    "~/coding/semgrep-rules"
+  },
   default_severity = vim.diagnostic.severity.INFO,
 })
-vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep Diagnostics" })
+vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep diagnostics" })
+vim.keymap.set("n", "<leader>tc", semgrep_diagnostics.print_config, { desc = "Print Semgrep diagnostics [C]onfig" })
+vim.keymap.set('n', '<leader>td', semgrep_diagnostics.show_rule_details, { desc = 'Show Semgrep rule [D]etails' })
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
