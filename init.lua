@@ -29,7 +29,6 @@ require('lazy').setup({
     'johnsaigle/semgrep-diagnostics.nvim',
     dependencies = { "jose-elias-alvarez/null-ls.nvim" },
   },
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -157,7 +156,7 @@ require('lazy').setup({
     build = ':TSUpdate',
     -- Configure highlighting for markdown. TODO probably broken
     highlight_groups = {
-      ["@markup.markdown.code"] = { fg = "gold" }, --, bg = "..." },
+      ["@markup.markdown.code"] = { fg = "gold" },  --, bg = "..." },
       ["@markup.markdown.block"] = { fg = "gold" }, --, bg = "..." },
       -- ["@markup.raw.block.markdown"] = { fg = "gold"}, --, bg = "..." },
       -- ["@markup.raw.delimiter.markdown"] = { fg = "gold"}, --, bg = "..." },
@@ -226,6 +225,43 @@ require('lazy').setup({
     },
     opts = {}
   },
+  { -- Trouble configuration (better experience with diagnostics)
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
 
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -238,7 +274,7 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
--- color scheme
+-- Color scheme
 vim.cmd("colorscheme rose-pine-moon")
 
 -- Change colors for current line
@@ -296,24 +332,24 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
--- Cargo Expand 
+-- Cargo Expand
 local cargo_expand = require('cargo-expand.expand')
 require('cargo-expand').setup({})
-vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand"})
+vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand" })
 
 -- GitHub Permalink
 local github_permalink = require('github-permalink')
 require('github-permalink').setup({})
-vim.keymap.set("v", "<leader>gg", github_permalink.generate_permalink, { desc = "[G]itHub Permalink"})
+vim.keymap.set("v", "<leader>gg", github_permalink.generate_permalink, { desc = "[G]itHub Permalink" })
 
 -- Semgrep Diagnostics
 local semgrep_diagnostics = require('semgrep-diagnostics')
 require('semgrep-diagnostics').setup({
-      filetypes = {"rust", "go", "solidity"},
-      semgrep_config = "~/coding/semgrep-rules-ar",
-      default_severity = vim.diagnostic.severity.INFO,
+  filetypes = { "rust", "go", "solidity" },
+  semgrep_config = "~/coding/semgrep-rules-ar",
+  default_severity = vim.diagnostic.severity.INFO,
 })
-vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep Diagnostics"})
+vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep Diagnostics" })
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -414,9 +450,9 @@ local servers = {
       workspace = {
         checkThirdParty = false,
         library = {
-            vim.env.VIMRUNTIME,
-            "${3rd}/luv/library"
-          },
+          vim.env.VIMRUNTIME,
+          "${3rd}/luv/library"
+        },
       },
       telemetry = { enable = false },
     },
