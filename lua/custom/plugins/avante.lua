@@ -5,29 +5,44 @@ return {
   version = false, -- set this if you want to always pull the latest change
   opts = {
     provider = "ollama",
-    auto_focus_sidebar = false,
     use_absolute_path = true,
     vendors = {
       ---@type AvanteProvider
       ollama = {
         -- endpoint = "http://nibbler:11434/v1",
-        endpoint = "http://localhost:11434/v1",
+        endpoint = "http://localhost:11434/api",
+        ask = "",
+        api_key_name = "",
         model = "qwen2.5-coder:7b-instruct-q8_0",
+        -- Custom curl args parsing for Ollama. https://github.com/yetone/avante.nvim/issues/1067
         parse_curl_args = function(opts, code_opts)
           return {
-            url = opts.endpoint .. "/chat/completions",
-            headers = {
-              ["Accept"] = "application/json",
-              ["Content-Type"] = "application/json",
-              ['x-api-key'] = 'ollama',
-            },
-            body = {
-              model = opts.model,
-              messages = require("avante.providers").copilot.parse_messages(code_opts),
-              max_tokens = 2048,
-              stream = true,
-            },
-          }
+                url = opts.endpoint .. "/chat",
+                headers = {
+                    ["Accept"] = "application/json",
+                    ["Content-Type"] = "application/json",
+                },
+                body = {
+                    model = opts.model,
+                    options = {
+                        num_ctx = 16384,
+                    },
+                    messages = require("avante.providers").copilot.parse_messages(code_opts), -- you can make your own message, but this is very advanced
+                    stream = true,
+                },
+            }
+        end,
+        -- Custom stream data parsing for Ollama. https://github.com/yetone/avante.nvim/issues/1067
+        parse_stream_data = function(data, handler_opts)
+            -- Parse the JSON data
+            local json_data = vim.fn.json_decode(data)
+            -- Check if the response contains a message
+            if json_data and json_data.message and json_data.message.content then
+                -- Extract the content from the message
+                local content = json_data.message.content
+                -- Call the handler with the content
+                handler_opts.on_chunk(content)
+            end
         end,
         parse_response_data = function(data_stream, event_state, opts)
           require("avante.providers").copilot.parse_response(data_stream, event_state, opts)
