@@ -14,7 +14,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
-
 -- Paste filepath to clipboard
 local function insertFullPath()
   local filepath = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
@@ -22,9 +21,9 @@ local function insertFullPath()
   vim.fn.setreg('+', filepath) -- write to clipboard
 end
 
-vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename to system clipboard ', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename to system [C]lipboard ', noremap = true, silent = true })
 -- Go to the nvim file explorer with a new key command
-vim.keymap.set('n', '<leader>pv',vim.cmd.Ex, { desc = "open nvim file explorer" })
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = "open nvim file explorer" })
 
 -- Swap lines in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -43,8 +42,15 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- Toggles most recent buffers
 vim.keymap.set('n', '<leader>;', '<C-^>')
---
+
 -- Toggle invlist
-vim.keymap.set('n', '<leader>,', ':set invlist<cr>')
+vim.keymap.set('n', '<leader>,', ':set invlist<CR>')
+
+-- Sort highlighted lines
+vim.keymap.set('v', '<leader>ss', ':%!sort<CR>', { desc = "[S]ort highlighted lines"} )
+vim.keymap.set('v', '<leader>sn', ':%!sort -n<CR>', { desc = "[S]ort highlighted lines ([N]umeric)"} )
+
+-- Toggle list (whitespace visibility)
+vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (visible whitespace)"} )
 
 -- vim: ts=2 sts=2 sw=2 et

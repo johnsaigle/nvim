@@ -275,6 +275,12 @@ require('lazy').setup({
 }, {})
 
 -- Color scheme
+require("rose-pine").setup({
+   highlight_groups = {
+        -- Change comments to "gold" but as defined in the dawn variant of the colorscheme
+        Comment = { fg = "#ea9d34" },
+    },
+})
 vim.cmd("colorscheme rose-pine-moon")
 
 -- Change colors for current line
@@ -325,7 +331,7 @@ vim.keymap.set("n", "<C-f>", function() harpoon.ui:toggle_quick_menu(harpoon:lis
 vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
 vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
 vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
--- TODO this doesn't respond: `;` is used for horizontal seaking
+-- TODO this doesn't respond: `;` is used for horizontal seeking
 -- vim.keymap.set("n", "<C-;>", function() harpoon:list():select(4) end)
 
 -- Toggle previous & next buffers stored within Harpoon list

@@ -60,3 +60,10 @@ vim.softtabstop = 0
 vim.expandtab = true
 vim.shiftwidth = 4
 vim.smarttab = true
+
+-- Whitespace representations
+vim.opt.listchars = {
+    space = '·',
+    tab = '>-',
+    eol = '$'
+}
