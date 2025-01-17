@@ -289,6 +289,7 @@ require("rose-pine").setup({
     Cursor = { fg = "white", bg = "love" },
     -- Make cursor line a darker version of "iris", approaching "base"
     CursorLine = { bg = "#5f4e75" },
+    -- Doesn't seem to work, still ends up with the 'subtle' colour
     Highlight = { bg = "rose" },
   },
 })
