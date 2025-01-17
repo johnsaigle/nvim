@@ -17,13 +17,16 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- TODO: Can I have an LLM tell me how to clean this up properly? lol
 require('lazy').setup({
   -- My plugins
   'johnsaigle/cargo-expand.nvim',
-  'johnsaigle/github-permalink.nvim',
+  { -- GitHub permalink
+    dir = '~/coding/github-permalink.nvim',
+  },
   { -- Semgrep Diagnostics
     dir = '~/coding/semgrep-diagnostics.nvim',
     'johnsaigle/semgrep-diagnostics.nvim',
@@ -352,10 +355,10 @@ local cargo_expand = require('cargo-expand.expand')
 require('cargo-expand').setup({})
 vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand" })
 
--- GitHub Permalink
-local github_permalink = require('github-permalink')
+-- [ GitHub Permalink ]
 require('github-permalink').setup({})
-vim.keymap.set("v", "<leader>gg", github_permalink.generate_permalink, { desc = "[G]itHub Permalink" })
+-- Using <C-u> clears the highlight after generating the link.
+vim.keymap.set("x", "<leader>gl", ":<C-u>GitHubPermalink<CR>", { desc = "[G]itHub Perma[L]ink"} )
 
 -- Semgrep Diagnostics
 local semgrep_diagnostics = require('semgrep-diagnostics')
