@@ -285,17 +285,15 @@ require("rose-pine").setup({
   highlight_groups = {
     -- Change comments to "gold" but as defined in the dawn variant of the colorscheme to make sure comments don't conflict with anything else
     Comment = { fg = "#ea9d34" },
-    -- Make cursor white. TODO bg doesn't seem to apply here, or is overridden
-    Cursor = { fg = "white", bg = "love" },
     -- Make cursor line a darker version of "iris", approaching "base"
-    CursorLine = { bg = "#5f4e75" },
-    -- Doesn't seem to work, still ends up with the 'subtle' colour
-    Highlight = { bg = "rose" },
+    CursorLine = { bg = "#5f4e75"},
+    -- Doesn't seem to work, still ends up with the 'subtle' colour. Maybe overridden by Avante?
+    -- Visual = { bg = "iris" },
   },
 })
 vim.cmd("colorscheme rose-pine-moon")
 
--- Manual override for Rose Pine. The latest release does not have these fields but they exist in main.
+-- Manual overrides for Rose Pine. The latest release does not have these fields but they exist in main.
 vim.api.nvim_set_hl(0, "CurSearch", {
   bg = "#eb6f92", -- Rose Pine - "love"
   fg = "#ffffff",

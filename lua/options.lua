@@ -81,10 +81,3 @@ vim.opt.listchars = {
     tab = '>-',
     eol = '$'
 }
-
--- Change cursor style
-vim.opt.guicursor = table.concat({
-    "n-v-c:underline-Cursor",  -- normal, visual, command modes: underline
-    "i-ci:ver100-iCursor",     -- insert mode: vertical bar
-    "r:hor100-rCursor",        -- replace mode: horizontal bar
-}, ",")
