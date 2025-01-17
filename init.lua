@@ -280,30 +280,34 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
--- Color scheme
+-- [[ Colour Scheme ]]
 require("rose-pine").setup({
-   highlight_groups = {
-        -- Change comments to "gold" but as defined in the dawn variant of the colorscheme
-        Comment = { fg = "#ea9d34" },
-    },
+  highlight_groups = {
+    -- Change comments to "gold" but as defined in the dawn variant of the colorscheme to make sure comments don't conflict with anything else
+    Comment = { fg = "#ea9d34" },
+    -- Make cursor white. TODO bg doesn't seem to apply here, or is overridden
+    Cursor = { fg = "white", bg = "love" },
+    -- Make cursor line a darker version of "iris", approaching "base"
+    CursorLine = { bg = "#5f4e75" },
+    Highlight = { bg = "rose" },
+  },
 })
 vim.cmd("colorscheme rose-pine-moon")
 
--- Change colors for current line
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "pink" })
-vim.api.nvim_set_hl(0, 'LineNr', { fg = "gray" })
-
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
+-- Manual override for Rose Pine. The latest release does not have these fields but they exist in main.
+vim.api.nvim_set_hl(0, "CurSearch", {
+  bg = "#eb6f92", -- Rose Pine - "love"
+  fg = "#ffffff",
+  bold = true,
+  -- TODO Doesn't seem to work. Font issue or something else?
+  italic = true
 })
-
+vim.api.nvim_set_hl(0, "Search", {
+  bg = "#c4a7e7", -- Rose Pine - "iris"
+  fg = "#eeeeee",
+  -- TODO Doesn't seem to work. Font issue or something else?
+  italic = true
+})
 
 -- Add files from the lua/ folder
 

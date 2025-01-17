@@ -17,11 +17,12 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagn
 -- Paste filepath to clipboard
 local function insertFullPath()
   local filepath = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
-  vim.fn.setreg('+', '') -- clear existing contents so that it doesn't get written twice
+  vim.fn.setreg('+', '')       -- clear existing contents so that it doesn't get written twice
   vim.fn.setreg('+', filepath) -- write to clipboard
 end
 
-vim.keymap.set('n', '<leader>pc', insertFullPath, { desc = '[pc] Yank filename to system [C]lipboard ', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>pc', insertFullPath,
+  { desc = '[pc] Yank filename to system [C]lipboard ', noremap = true, silent = true })
 -- Go to the nvim file explorer with a new key command
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = "open nvim file explorer" })
 
@@ -40,17 +41,31 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+-- Insert bullet point
+vim.keymap.set("n", "<leader>bb", function()
+  -- Save current cursor position
+  local win = vim.api.nvim_get_current_win()
+  local cursor = vim.api.nvim_win_get_cursor(win)
+
+  -- Insert bullet at start of line
+  vim.cmd("normal! I- ")
+
+  -- Restore cursor position (adjusting for the added characters)
+  cursor[2] = cursor[2] + 2   -- adjust for "- " (2 characters)
+  vim.api.nvim_win_set_cursor(win, cursor)
+end)
+
 -- Toggles most recent buffers
-vim.keymap.set('n', '<leader>;', '<C-^>')
+vim.keymap.set('n', '<leader>;', '<C-^>', { desc = "Toggle most recent buffers" })
 
 -- Toggle invlist
 vim.keymap.set('n', '<leader>,', ':set invlist<CR>')
 
 -- Sort highlighted lines
-vim.keymap.set('v', '<leader>ss', ':%!sort<CR>', { desc = "[S]ort highlighted lines"} )
-vim.keymap.set('v', '<leader>sn', ':%!sort -n<CR>', { desc = "[S]ort highlighted lines ([N]umeric)"} )
+vim.keymap.set('v', '<leader>ss', ':%!sort<CR>', { desc = "[S]ort highlighted lines" })
+vim.keymap.set('v', '<leader>sn', ':%!sort -n<CR>', { desc = "[S]ort highlighted lines ([N]umeric)" })
 
 -- Toggle list (whitespace visibility)
-vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (visible whitespace)"} )
+vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (visible whitespace)" })
 
 -- vim: ts=2 sts=2 sw=2 et

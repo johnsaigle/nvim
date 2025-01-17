@@ -3,16 +3,30 @@
 
 -- Set highlight on search
 vim.o.hlsearch = true
---
--- Set highlight on search
+
+-- Set relative numbers
 vim.o.relativenumber = true
+
+-- Highlight the selected line
 vim.o.cursorline = true
 
 -- Make line numbers default
 vim.wo.number = true
 
--- Enable mouse mode
-vim.o.mouse = 'a'
+-- Change colors for current line
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = "pink" })
+vim.api.nvim_set_hl(0, 'LineNr', { fg = "gray" })
+
+-- Highlight on yank
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -43,7 +57,7 @@ vim.wo.colorcolumn = '120'
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
+-- TODO: should make sureyour terminal supports this
 vim.o.termguicolors = true
 
 -- Enable spelling
