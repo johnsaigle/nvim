@@ -68,4 +68,7 @@ vim.keymap.set('v', '<leader>sn', ':%!sort -n<CR>', { desc = "[S]ort highlighted
 -- Toggle list (whitespace visibility)
 vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (visible whitespace)" })
 
+-- Shortcut to :Format (LSP)
+vim.keymap.set('n', '<leader>fm', ':Format<CR>', { desc = "[F]or[M]at" })
+
 -- vim: ts=2 sts=2 sw=2 et
