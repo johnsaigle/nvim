@@ -24,11 +24,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- My plugins
   'johnsaigle/cargo-expand.nvim',
-  { -- GitHub permalink
-    dir = '~/coding/github-permalink.nvim',
+  {
+    'johnsaigle/github-permalink.nvim',
   },
-  { -- Semgrep Diagnostics
-    dir = '~/coding/semgrep-diagnostics.nvim',
+  {
     'johnsaigle/semgrep-diagnostics.nvim',
     dependencies = { "jose-elias-alvarez/null-ls.nvim" },
   },
