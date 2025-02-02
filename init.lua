@@ -29,7 +29,7 @@ require('lazy').setup({
   },
   {
     'johnsaigle/semgrep-diagnostics.nvim',
-    dependencies = { "jose-elias-alvarez/null-ls.nvim" },
+    dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
   },
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -362,7 +362,7 @@ vim.keymap.set("x", "<leader>gl", ":<C-u>GitHubPermalink<CR>", { desc = "[G]itHu
 -- Semgrep Diagnostics
 local semgrep_diagnostics = require('semgrep-diagnostics')
 require('semgrep-diagnostics').setup({
-  filetypes = { "rust", "go", "solidity" },
+  filetypes = { "sh", "bash", "rust", "go", "solidity" },
   semgrep_config = {
     "p/trailofbits",
     "~/coding/semgrep-rules"
@@ -372,6 +372,7 @@ require('semgrep-diagnostics').setup({
 vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep diagnostics" })
 vim.keymap.set("n", "<leader>tc", semgrep_diagnostics.print_config, { desc = "Print Semgrep diagnostics [C]onfig" })
 vim.keymap.set('n', '<leader>td', semgrep_diagnostics.show_rule_details, { desc = 'Show Semgrep rule [D]etails' })
+vim.keymap.set('n', '<leader>ts', semgrep_diagnostics.semgrep, { desc = 'Run [S]emgrep' })
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
