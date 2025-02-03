@@ -375,12 +375,12 @@ require('semgrep-diagnostics').setup({
 })
 vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep diagnostics" })
 vim.keymap.set("n", "<leader>tc", semgrep_diagnostics.print_config, { desc = "Print Semgrep diagnostics [C]onfig" })
-vim.keymap.set('n', '<leader>td', semgrep_diagnostics.show_rule_details, { desc = 'Show Semgrep rule [D]etails' })
+-- vim.keymap.set('n', '<leader>td', semgrep_diagnostics.show_rule_details, { desc = 'Show Semgrep rule [D]etails' })
 vim.keymap.set('n', '<leader>ts', semgrep_diagnostics.semgrep, { desc = 'Run [S]emgrep' })
 
 local clippy = require('clippy')
 clippy.setup({})
-vim.keymap.set("n", "<leader>ll", clippy.clippy, { desc = "Run [C][L]ippy" })
+vim.keymap.set("n", "<leader>ll", clippy.clippy, { desc = "Run C[L]ippy [L]ints" })
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
