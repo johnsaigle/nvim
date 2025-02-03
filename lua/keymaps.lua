@@ -19,6 +19,7 @@ local function insertFullPath()
   local filepath = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
   vim.fn.setreg('+', '')       -- clear existing contents so that it doesn't get written twice
   vim.fn.setreg('+', filepath) -- write to clipboard
+  vim.notify("Copied: " .. filepath, vim.log.levels.INFO)
 end
 
 vim.keymap.set('n', '<leader>pc', insertFullPath,
@@ -51,7 +52,7 @@ vim.keymap.set("n", "<leader>bb", function()
   vim.cmd("normal! I- ")
 
   -- Restore cursor position (adjusting for the added characters)
-  cursor[2] = cursor[2] + 2   -- adjust for "- " (2 characters)
+  cursor[2] = cursor[2] + 2 -- adjust for "- " (2 characters)
   vim.api.nvim_win_set_cursor(win, cursor)
 end)
 
