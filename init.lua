@@ -24,15 +24,17 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- My plugins
   'johnsaigle/cargo-expand.nvim',
-  {
-    'johnsaigle/github-permalink.nvim',
-  },
+  'johnsaigle/github-permalink.nvim',
   {
     'johnsaigle/semgrep-diagnostics.nvim',
     dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
   },
   { -- Clippy diagnostics
     'johnsaigle/clippy.nvim',
+    dependencies = { "jose-elias-alvarez/null-ls.nvim" },
+  },
+  { -- Radar diagnostics
+    'johnsaigle/solana-radar.nvim',
     dependencies = { "jose-elias-alvarez/null-ls.nvim" },
   },
   -- Git related plugins
@@ -353,7 +355,7 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
--- Cargo Expand
+-- [ Cargo Expand ]
 local cargo_expand = require('cargo-expand.expand')
 require('cargo-expand').setup({})
 vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand" })
@@ -363,24 +365,25 @@ require('github-permalink').setup({})
 -- Using <C-u> clears the highlight after generating the link.
 vim.keymap.set("x", "<leader>gl", ":<C-u>GitHubPermalink<CR>", { desc = "[G]itHub Perma[L]ink"} )
 
--- Semgrep Diagnostics
-local semgrep_diagnostics = require('semgrep-diagnostics')
+-- [ Semgrep Diagnostics ]
 require('semgrep-diagnostics').setup({
-  filetypes = { "sh", "bash", "rust", "go", "solidity" },
+  filetypes = { "sh", "bash", "lua", "rust", "go", "solidity" },
   semgrep_config = {
     "p/trailofbits",
-    "~/coding/semgrep-rules"
+    "~/coding/semgrep-rules",
+    "~/coding/semgrep-scary-strings",
   },
   default_severity = vim.diagnostic.severity.INFO,
 })
-vim.keymap.set("n", "<leader>tt", semgrep_diagnostics.toggle, { desc = "[T]oggle Semgrep diagnostics" })
-vim.keymap.set("n", "<leader>tc", semgrep_diagnostics.print_config, { desc = "Print Semgrep diagnostics [C]onfig" })
--- vim.keymap.set('n', '<leader>td', semgrep_diagnostics.show_rule_details, { desc = 'Show Semgrep rule [D]etails' })
-vim.keymap.set('n', '<leader>ts', semgrep_diagnostics.semgrep, { desc = 'Run [S]emgrep' })
 
 local clippy = require('clippy')
 clippy.setup({})
 vim.keymap.set("n", "<leader>ll", clippy.clippy, { desc = "Run C[L]ippy [L]ints" })
+
+local radar = require('solana-radar')
+radar.setup({})
+-- vim.keymap.set("n", "<leader>rr", radar.scan, { desc = "[R]un [R]adar" })
+
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
