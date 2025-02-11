@@ -30,6 +30,7 @@ require('lazy').setup({
     dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
   },
   { -- Clippy diagnostics
+    -- dir = '~/coding/clippy.nvim',
     'johnsaigle/clippy.nvim',
     dependencies = { "jose-elias-alvarez/null-ls.nvim" },
   },
@@ -367,6 +368,7 @@ vim.keymap.set("x", "<leader>gl", ":<C-u>GitHubPermalink<CR>", { desc = "[G]itHu
 
 -- [ Semgrep Diagnostics ]
 require('semgrep-diagnostics').setup({
+  enabled = false,
   filetypes = { "sh", "bash", "lua", "rust", "go", "solidity" },
   semgrep_config = {
     "p/trailofbits",
@@ -381,7 +383,7 @@ clippy.setup({})
 vim.keymap.set("n", "<leader>ll", clippy.clippy, { desc = "Run C[L]ippy [L]ints" })
 
 local radar = require('solana-radar')
-radar.setup({})
+radar.setup({enabled = false})
 -- vim.keymap.set("n", "<leader>rr", radar.scan, { desc = "[R]un [R]adar" })
 
 
