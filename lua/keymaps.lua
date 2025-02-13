@@ -75,7 +75,6 @@ vim.keymap.set('n', '<leader>fm', ':Format<CR>', { desc = "[F]or[M]at" })
 
 -- Normal-mode keymap. Uses current buffer to configure keymaps only for certain filetypes.
 local nmap = function(bufnr, keys, func, desc)
-  vim.notify(string.format("Setting keymap for buffer %d", bufnr))
   vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 end
 
@@ -88,7 +87,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- [ Go keymaps ]
 -- [ Go keymaps ]
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",
