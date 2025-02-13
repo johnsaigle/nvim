@@ -1,5 +1,5 @@
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
+-- [ Generic keymaps ]
+
 --  NOTE: The keymap is added in order to allow <space> to be <leader> while in Visual mode
 -- https://neovim.discourse.group/t/how-do-i-use-space-as-the-leader-in-visual-mode/916-- Set <space> as the leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -69,7 +69,40 @@ vim.keymap.set('v', '<leader>sn', ':%!sort -n<CR>', { desc = "[S]ort highlighted
 -- Toggle list (whitespace visibility)
 vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (visible whitespace)" })
 
--- Shortcut to :Format (LSP)
+-- Shortcut to `:Format` (LSP)
 vim.keymap.set('n', '<leader>fm', ':Format<CR>', { desc = "[F]or[M]at" })
+
+
+-- Normal-mode keymap. Uses current buffer to configure keymaps only for certain filetypes.
+local nmap = function(bufnr, keys, func, desc)
+  vim.notify(string.format("Setting keymap for buffer %d", bufnr))
+  vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+end
+
+-- [ Lua keymaps ]
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "lua",
+  callback = function(args)
+    -- Insert `vim.notify(...)` and move cursor to the first argument.
+    nmap(args.buf, '<leader>vn', 'ovim.notify("", vim.log.levels.WARN)<Esc>2F"ci"', 'Insert vim.notify')
+  end,
+})
+
+-- [ Go keymaps ]
+-- [ Go keymaps ]
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  callback = function(args)
+    -- do err == nil check and change contents within braces
+    nmap(args.buf, '<leader>ee', 'oif err != nil {<CR>}<Esc>Oreturn err<Esc>', "Insert err != nil check")
+    -- Format a byte string
+    nmap(args.buf, '<leader>fb', 'ifmt.Sprintf("%x", byteStr)<Esc>Fb', "Format byte string")
+    -- comma ok pattern
+    nmap(args.buf, '<leader>eo', 'oif item, ok := collection[key]; !ok {<CR>}<Esc>O<Esc>', "Insert comma ok pattern")
+    -- create new error and change contents in quotes
+    nmap(args.buf, '<leader>en', 'ierrors.New("")<Esc>2F"ci"', "Insert errors.New")
+  end,
+})
+
 
 -- vim: ts=2 sts=2 sw=2 et
