@@ -1,11 +1,8 @@
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -20,11 +17,9 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
--- TODO: Can I have an LLM tell me how to clean this up properly? lol
 require('lazy').setup({
   -- My plugins
   'johnsaigle/cargo-expand.nvim',
-  'johnsaigle/github-permalink.nvim',
   {
     'johnsaigle/semgrep-diagnostics.nvim',
     dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
@@ -44,8 +39,6 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-
-  'ThePrimeagen/rfceez',
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -137,13 +130,10 @@ require('lazy').setup({
       -- show_trailing_blankline_indent = true,
     },
   },
-
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',         opts = {} },
-
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
-
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
@@ -156,7 +146,6 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
-
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -170,12 +159,6 @@ require('lazy').setup({
       -- ["@markup.raw.block.markdown"] = { fg = "gold"}, --, bg = "..." },
       -- ["@markup.raw.delimiter.markdown"] = { fg = "gold"}, --, bg = "..." },
     }
-    -- dependencies = {
-    --   'nvim-treesitter/nvim-treesitter-textobjects',
-    -- },
-    -- config = function()
-    --   pcall(require('nvim-treesitter.install').update { with_sync = true })
-    -- end,
   },
   -- Go tools
   -- https://github.com/ray-x/go.nvim?tab=readme-ov-file#lazynvim
@@ -187,7 +170,6 @@ require('lazy').setup({
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      -- require("go").setup()
       require("go")
     end,
     event = { "CmdlineEnter" },
@@ -277,15 +259,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  --
-  --    An additional note is that if you only copied in the `init.lua`, you can just comment this line
-  --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
   { import = 'custom.plugins' },
 }, {})
 
@@ -360,11 +333,6 @@ vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 local cargo_expand = require('cargo-expand.expand')
 require('cargo-expand').setup({})
 vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand" })
-
--- [ GitHub Permalink ]
-require('github-permalink').setup({})
--- Using <C-u> clears the highlight after generating the link.
-vim.keymap.set("x", "<leader>gl", ":<C-u>GitHubPermalink<CR>", { desc = "[G]itHub Perma[L]ink"} )
 
 -- [ Semgrep Diagnostics ]
 require('semgrep-diagnostics').setup({
