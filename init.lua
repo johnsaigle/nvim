@@ -18,21 +18,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  -- My plugins
-  'johnsaigle/cargo-expand.nvim',
-  {
-    'johnsaigle/semgrep-diagnostics.nvim',
-    dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
-  },
-  { -- Clippy diagnostics
-    -- dir = '~/coding/clippy.nvim',
-    'johnsaigle/clippy.nvim',
-    dependencies = { "jose-elias-alvarez/null-ls.nvim" },
-  },
-  { -- Radar diagnostics
-    'johnsaigle/solana-radar.nvim',
-    dependencies = { "jose-elias-alvarez/null-ls.nvim" },
-  },
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -125,10 +110,6 @@ require('lazy').setup({
     main = "ibl",
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      -- char = '┊',
-      -- show_trailing_blankline_indent = true,
-    },
   },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',         opts = {} },
@@ -152,12 +133,9 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
-    -- Configure highlighting for markdown. TODO probably broken
     highlight_groups = {
       ["@markup.markdown.code"] = { fg = "gold" },  --, bg = "..." },
       ["@markup.markdown.block"] = { fg = "gold" }, --, bg = "..." },
-      -- ["@markup.raw.block.markdown"] = { fg = "gold"}, --, bg = "..." },
-      -- ["@markup.raw.delimiter.markdown"] = { fg = "gold"}, --, bg = "..." },
     }
   },
   -- Go tools
@@ -328,32 +306,6 @@ vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
-
--- [ Cargo Expand ]
-local cargo_expand = require('cargo-expand.expand')
-require('cargo-expand').setup({})
-vim.keymap.set("n", "<leader>ce", cargo_expand.expand, { desc = "[C]argo [E]xpand" })
-
--- [ Semgrep Diagnostics ]
-require('semgrep-diagnostics').setup({
-  enabled = false,
-  filetypes = { "sh", "bash", "lua", "rust", "go", "solidity" },
-  semgrep_config = {
-    "p/trailofbits",
-    "~/coding/semgrep-rules",
-    "~/coding/semgrep-scary-strings",
-  },
-  default_severity = vim.diagnostic.severity.INFO,
-})
-
-local clippy = require('clippy')
-clippy.setup({})
-vim.keymap.set("n", "<leader>ll", clippy.clippy, { desc = "Run C[L]ippy [L]ints" })
-
-local radar = require('solana-radar')
-radar.setup({enabled = false})
--- vim.keymap.set("n", "<leader>rr", radar.scan, { desc = "[R]un [R]adar" })
-
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
