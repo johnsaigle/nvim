@@ -4,17 +4,17 @@ return {
   -- settings with {}; string will be set to ''. user need to setup ALL the settings
   -- It is import to set ALL values in your own config if set value to true otherwise the plugin may not work
   go='go', -- go command, can be go[default] or e.g. go1.18beta1
-  goimports ='gopls', -- goimports command, can be gopls[default] or either goimports or golines if need to split long lines
-  -- gofmt = 'gopls', -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
+  goimports ='goimports', -- goimports command, can be gopls[default] or either goimports or golines if need to split long lines
+  gofmt = 'goimports', -- gofmt through gopls: alternative is gofumpt, goimports, golines, gofmt, etc
   fillstruct = 'gopls',  -- set to fillstruct if gopls fails to fill struct
-  max_line_len = 0, -- max line length in golines format, Target maximum line length for golines
+  -- max_line_len = 100, -- max line length in golines format, Target maximum line length for golines
   tag_transform = false, -- can be transform option("snakecase", "camelcase", etc) check gomodifytags for details and more options
   tag_options = 'json=omitempty', -- sets options sent to gomodifytags, i.e., json=omitempty
   gotests_template = "", -- sets gotests -template parameter (check gotests for details)
   gotests_template_dir = "", -- sets gotests -template_dir parameter (check gotests for details)
   gotest_case_exact_match = true, -- true: run test with ^Testname$, false: run test with TestName
   comment_placeholder = '' ,  -- comment_placeholder your cool placeholder e.g. 󰟓       
-  icons = {breakpoint = '🧘', currentpos = '🏃'},  -- setup to `false` to disable icons setup
+  icons = {false },  -- setup to `false` to disable icons setup
   verbose = false,  -- output loginf in messages
   lsp_semantic_highlights = true, -- use highlights from gopls
   lsp_cfg = false, -- true: use non-default gopls setup specified in go/lsp.lua
@@ -57,7 +57,7 @@ return {
     underline = true,
     virtual_text = { spacing = 2}, -- virtual text setup
     -- virtual_text = { spacing = 2, prefix = '' }, -- virtual text setup
-    signs = {'', '', '', ''},  -- set to true to use default signs, an array of 4 to specify custom signs
+    signs = {true},  -- set to true to use default signs, an array of 4 to specify custom signs
     update_in_insert = false,
   },
   -- if you need to setup your ui for input and select, you can do it here
@@ -129,7 +129,7 @@ return {
                               -- can also set to a list of colors to define colors to choose from
                               -- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
   },
-  trouble = false, -- true: use trouble to open quickfix
+  trouble = true, -- true: use trouble to open quickfix
   test_efm = false, -- errorfomat for quickfix, default mix mode, set to true will be efm only
   luasnip = true, -- enable included luasnip snippets. you can also disable while add lua/snips folder to luasnip load
   --  Do not enable this if you already added the path, that will duplicate the entries
