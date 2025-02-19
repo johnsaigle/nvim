@@ -72,10 +72,6 @@ vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (vis
 -- Shortcut to `:Format` (LSP)
 vim.keymap.set('n', '<leader>fm', ':Format<CR>', { desc = "[F]or[M]at" })
 
--- Arguably easier dd
-vim.keymap.set('n', 'vd', 'dd', { desc = "Delete line" })
-
-
 -- Normal-mode keymap. Uses current buffer to configure keymaps only for certain filetypes.
 local nmap = function(bufnr, keys, func, desc)
   vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
