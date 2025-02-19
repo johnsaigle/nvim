@@ -83,6 +83,8 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
     -- Insert `vim.notify(...)` and move cursor to the first argument.
     nmap(args.buf, '<leader>vn', 'ovim.notify("", vim.log.levels.WARN)<Esc>2F"ci"', 'Insert vim.notify')
+    -- Insert `vim.keymap.set(...)` and move cursor to the quotation mark in the second parameter
+    nmap(args.buf, '<leader>vk',"ovim.keymap.set('n', '', '', { desc = '' })<Esc>6F'", 'Insert vim.keymap.set')
   end,
 })
 
@@ -90,8 +92,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",
   callback = function(args)
-    -- do err == nil check and change contents within braces
-    nmap(args.buf, '<leader>ee', 'oif err != nil {<CR>}<Esc>Oreturn err<Esc>', "Insert err != nil check")
+    -- Alias for :GoIfErr from gopls: type-aware error handling.
+    nmap(args.buf, '<leader>ee', '<cmd>GoIfErr<cr>', "Insert if-err check")
     -- Format a byte string
     nmap(args.buf, '<leader>fb', 'ifmt.Sprintf("%x", byteStr)<Esc>Fb', "Format byte string")
     -- comma ok pattern
