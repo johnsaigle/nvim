@@ -57,7 +57,6 @@ vim.wo.colorcolumn = '120'
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- TODO: should make sureyour terminal supports this
 vim.o.termguicolors = true
 
 -- Enable spelling
