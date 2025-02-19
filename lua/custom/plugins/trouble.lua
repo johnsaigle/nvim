@@ -12,7 +12,7 @@ return {
 
     local trouble = require('trouble')
 
-    vim.keymap.set('n', '<leader>xx', "<cmd>Trouble diagnostics toggle<cr>")
+    vim.keymap.set('n', '<leader>xt', "<cmd>Trouble diagnostics toggle<cr>")
 
     vim.keymap.set('n', '<leader>xn', function()
       trouble.next({ skip_groups = false, jump = true })
