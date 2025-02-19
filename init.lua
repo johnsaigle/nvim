@@ -18,181 +18,186 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  -- Git related plugins
-  'tpope/vim-rhubarb',
+    -- Git related plugins
+    'tpope/vim-rhubarb',
 
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+    -- Detect tabstop and shiftwidth automatically
+    'tpope/vim-sleuth',
 
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+    { -- LSP Configuration & Plugins
+      'neovim/nvim-lspconfig',
+      dependencies = {
+        -- Automatically install LSPs to stdpath for neovim
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim', opts = {} },
+        -- Useful status updates for LSP
+        { 'j-hui/fidget.nvim', opts = {} },
 
-      -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-    },
-  },
-  -- call tree
-  {
-    'ldelossa/litee.nvim',
-    event = "VeryLazy",
-    opts = {
-      notify = { enabled = false },
-      panel = {
-        orientation = "bottom",
-        panel_size = 10,
+        -- Additional lua configuration, makes nvim stuff amazing!
+        'folke/neodev.nvim',
       },
     },
-    config = function(_, opts) require('litee.lib').setup(opts) end
-  },
-
-  {
-    'ldelossa/litee-calltree.nvim',
-    dependencies = 'ldelossa/litee.nvim',
-    event = "VeryLazy",
-    opts = {
-      on_open = "panel",
-      map_resize_keys = false,
-    },
-    config = function(_, opts) require('litee.calltree').setup(opts) end
-  },
-
-  { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  },
-  {
-    'https://codeberg.org/esensar/nvim-dev-container',
-    dependencies = 'nvim-treesitter/nvim-treesitter'
-  },
-
-  -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',          opts = {} },
-  { -- Adds git releated signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
-  {
-    "rose-pine/neovim", name = "rose-pine",
-  },
-  { -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = false,
-        theme = 'rose-pine',
-        component_separators = '|',
-        section_separators = '',
-        path = 3, -- absolute path, with tilde as home
-      },
-    },
-  },
-
-  { -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-  },
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-  -- Only load if `make` is available. Make sure you have the system
-  -- requirements installed.
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-    highlight_groups = {
-      ["@markup.markdown.code"] = { fg = "gold" },  --, bg = "..." },
-      ["@markup.markdown.block"] = { fg = "gold" }, --, bg = "..." },
-    }
-  },
-  -- Go tools
-  -- https://github.com/ray-x/go.nvim?tab=readme-ov-file#lazynvim
-  {
-    "ray-x/go.nvim",
-    dependencies = { -- optional packages
-      "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("go")
-    end,
-    event = { "CmdlineEnter" },
-    ft = { "go", 'gomod' },
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  },
-  -- Rainbow highlighting for delimiters
-  {
-    'HiPhish/rainbow-delimiters.nvim',
-  },
-  -- CodeQL support
-  {
-    "pwntester/codeql.nvim",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/telescope.nvim",
-      "kyazdani42/nvim-web-devicons",
-      {
-        's1n7ax/nvim-window-picker',
-        version = 'v1.*',
-        opts = {
-          autoselect_one = true,
-          include_current = false,
-          filter_rules = {
-            bo = {
-              filetype = {
-                "codeql_panel",
-                "codeql_explorer",
-                "qf",
-                "TelescopePrompt",
-                "TelescopeResults",
-                "notify",
-                "noice",
-                "NvimTree",
-                "neo-tree",
-              },
-              buftype = { 'terminal' },
-            },
-          },
-          current_win_hl_color = '#e35e4f',
-          other_win_hl_color = '#44cc41',
+    -- call tree
+    {
+      'ldelossa/litee.nvim',
+      event = "VeryLazy",
+      opts = {
+        notify = { enabled = false },
+        panel = {
+          orientation = "bottom",
+          panel_size = 10,
         },
+      },
+      config = function(_, opts) require('litee.lib').setup(opts) end
+    },
+
+    {
+      'ldelossa/litee-calltree.nvim',
+      dependencies = 'ldelossa/litee.nvim',
+      event = "VeryLazy",
+      opts = {
+        on_open = "panel",
+        map_resize_keys = false,
+      },
+      config = function(_, opts) require('litee.calltree').setup(opts) end
+    },
+
+    { -- Autocompletion
+      'hrsh7th/nvim-cmp',
+      dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    },
+    {
+      'https://codeberg.org/esensar/nvim-dev-container',
+      dependencies = 'nvim-treesitter/nvim-treesitter'
+    },
+
+    -- Useful plugin to show you pending keybinds.
+    { 'folke/which-key.nvim',  opts = {} },
+    { -- Adds git releated signs to the gutter, as well as utilities for managing changes
+      'lewis6991/gitsigns.nvim',
+      opts = {
+        -- See `:help gitsigns.txt`
+        signs = {
+          add = { text = '+' },
+          change = { text = '~' },
+          delete = { text = '_' },
+          topdelete = { text = '‾' },
+          changedelete = { text = '~' },
+        },
+      },
+    },
+    {
+      "rose-pine/neovim", name = "rose-pine",
+    },
+    { -- Set lualine as statusline
+      'nvim-lualine/lualine.nvim',
+      -- See `:help lualine.txt`
+      opts = {
+        options = {
+          icons_enabled = false,
+          theme = 'rose-pine',
+          component_separators = '|',
+          section_separators = '',
+          path = 3, -- absolute path, with tilde as home
+        },
+      },
+    },
+
+    { -- Add indentation guides even on blank lines
+      'lukas-reineke/indent-blankline.nvim',
+      main = "ibl",
+      -- Enable `lukas-reineke/indent-blankline.nvim`
+      -- See `:help indent_blankline.txt`
+    },
+    -- "gc" to comment visual regions/lines
+    { 'numToStr/Comment.nvim', opts = {} },
+    -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+    -- Only load if `make` is available. Make sure you have the system
+    -- requirements installed.
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      -- NOTE: If you are having trouble with this installation,
+      --       refer to the README for telescope-fzf-native for more instructions.
+      build = 'make',
+      cond = function()
+        return vim.fn.executable 'make' == 1
+      end,
+    },
+    { -- Highlight, edit, and navigate code
+      'nvim-treesitter/nvim-treesitter',
+      dependencies = {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+      },
+      build = ':TSUpdate',
+      highlight_groups = {
+        ["@markup.markdown.code"] = { fg = "gold" },
+        ["@markup.markdown.block"] = { fg = "gold" },
       }
     },
-    opts = {}
+    -- Go tools
+    -- https://github.com/ray-x/go.nvim?tab=readme-ov-file#lazynvim
+    {
+      "ray-x/go.nvim",
+      dependencies = { -- optional packages
+        "ray-x/guihua.lua",
+        "neovim/nvim-lspconfig",
+        "nvim-treesitter/nvim-treesitter",
+      },
+      config = function()
+        require("go")
+      end,
+      event = { "CmdlineEnter" },
+      ft = { "go", 'gomod' },
+      build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+    },
+    -- Rainbow highlighting for delimiters
+    {
+      'HiPhish/rainbow-delimiters.nvim',
+    },
+    -- CodeQL support
+    {
+      "pwntester/codeql.nvim",
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/telescope.nvim",
+        "kyazdani42/nvim-web-devicons",
+        {
+          's1n7ax/nvim-window-picker',
+          version = 'v1.*',
+          opts = {
+            autoselect_one = true,
+            include_current = false,
+            filter_rules = {
+              bo = {
+                filetype = {
+                  "codeql_panel",
+                  "codeql_explorer",
+                  "qf",
+                  "TelescopePrompt",
+                  "TelescopeResults",
+                  "notify",
+                  "noice",
+                  "NvimTree",
+                  "neo-tree",
+                },
+                buftype = { 'terminal' },
+              },
+            },
+            current_win_hl_color = '#e35e4f',
+            other_win_hl_color = '#44cc41',
+          },
+        }
+      },
+      opts = {}
+    },
+    { import = 'custom.plugins' },
   },
-  { import = 'custom.plugins' },
-}, {})
+  -- second argument for lazy.setup()
+  {
+    change_detection = { notify = false }
+  }
+)
 
 -- [[ Colour Scheme ]]
 require("rose-pine").setup({
