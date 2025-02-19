@@ -2,39 +2,47 @@ return {
   'sindrets/diffview.nvim',
   config = function()
     local diffview = require('diffview')
-    diffview.setup({})
+    diffview.setup({
+      enhanced_diff_hl = true,
+      view = {
+        default = {
+          winbar_info = true,
+        },
+      },
+    })
 
+    -- Keymaps
     vim.keymap.set('n', '<leader>dvt', '<cmd>DiffviewToggleFiles<cr>', { desc = '[D]iff[V]iew [T]oggle Files' })
     vim.keymap.set('n', '<leader>dvc', '<cmd>DiffviewClose<cr>', { desc = '[D]iff[V]iew [C]lose' })
 
-    -- Customize highlight colours for diffview
+    -- Set up an autocmd to ensure highlights are reapplied after colorscheme changes
     vim.api.nvim_create_autocmd("ColorScheme", {
       pattern = "*",
       callback = function()
-        -- Added lines - bold forest green
+        -- Regular diff highlights
         vim.api.nvim_set_hl(0, "DiffAdd", {
-          bg = "#2d5d4f", -- High saturation green
-          nocombine = true,
+          bg = "#2d524a", -- saturated green
         })
-
-        -- Deleted lines - rich rose/red
         vim.api.nvim_set_hl(0, "DiffDelete", {
-          bg = "#703e5c", -- Deep, saturated purple-red
-          nocombine = true,
+          -- bg = "#703e5c", -- Deep, saturated purple-red
+          bg = "#db4b4b",
         })
-
-        -- Changed lines - strong blue
         vim.api.nvim_set_hl(0, "DiffChange", {
           bg = "#3a5e89", -- Rich navy blue
-          nocombine = true,
         })
-
-        -- Specific changes within lines
+        -- vim.api.nvim_set_hl(0, "DiffText", {
+        --   bg = "#58b5e3", -- Bright blue for changed text
+        -- })
         vim.api.nvim_set_hl(0, "DiffText", {
+          bg = "#3e8fb0", -- Rose Pine Moon overlay blue
+          fg = "#e0def4", -- Rose Pine Moon text color
+        })
+        vim.api.nvim_set_hl(0, "DiffviewDiffChange", {
           bg = "#4b6a96", -- Very distinct highlight
           nocombine = true,
         })
-      end
+      end,
     })
   end
 }
+
