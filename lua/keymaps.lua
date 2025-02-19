@@ -42,19 +42,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- Insert bullet point
-vim.keymap.set("n", "<leader>bb", function()
-  -- Save current cursor position
-  local win = vim.api.nvim_get_current_win()
-  local cursor = vim.api.nvim_win_get_cursor(win)
-
-  -- Insert bullet at start of line
-  vim.cmd("normal! I- ")
-
-  -- Restore cursor position (adjusting for the added characters)
-  cursor[2] = cursor[2] + 2 -- adjust for "- " (2 characters)
-  vim.api.nvim_win_set_cursor(win, cursor)
-end)
 
 -- Toggles most recent buffers
 vim.keymap.set('n', '<leader>;', '<C-^>', { desc = "Toggle most recent buffers" })
@@ -101,6 +88,26 @@ vim.api.nvim_create_autocmd("FileType", {
     -- create new error and change contents in quotes
     nmap(args.buf, '<leader>en', 'ierrors.New("")<Esc>2F"ci"', "Insert errors.New")
   end,
+})
+
+-- [ Markdown keymaps ]
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    -- Insert bullet point
+    vim.keymap.set("n", "<leader>bu", function()
+      -- Save current cursor position
+      local win = vim.api.nvim_get_current_win()
+      local cursor = vim.api.nvim_win_get_cursor(win)
+
+      -- Insert bullet at start of line
+      vim.cmd("normal! I- ")
+
+      -- Restore cursor position (adjusting for the added characters)
+      cursor[2] = cursor[2] + 2 -- adjust for "- " (2 characters)
+      vim.api.nvim_win_set_cursor(win, cursor)
+    end)
+  end
 })
 
 
