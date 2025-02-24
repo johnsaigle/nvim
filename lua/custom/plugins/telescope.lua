@@ -5,12 +5,20 @@ return {
   config = function()
     require('telescope').setup {
       defaults = {
+        layout_strategy = 'vertical',
+        layout_config = {
+          vertical = {
+            width = function() return vim.o.columns end,
+            height = function() return vim.o.lines - 2 end,
+            prompt_position = "top"
+          }
+        },
         mappings = {
           i = {
             ['<C-u>'] = false,
             ['<C-d>'] = false,
           },
-        },
+        }
       },
     }
 
@@ -37,5 +45,20 @@ return {
       local word = vim.fn.expand("<cWORD>")
       builtin.grep_string({ search = word })
     end, { desc = '[S]earch current big [W]ord' })
+
+    vim.keymap.set('n', '<leader>so', function()
+      local search_dirs = {
+        -- TODO: Should probably add all of the Solana core repositories now that they're split out of the monorepo
+        -- TODO: Add a warning if these paths don't exist.
+        vim.fs.joinpath("~/coding/", "solana"),
+        vim.fs.joinpath("~/coding/", "solana-spl-token"),
+        vim.fs.joinpath("~/coding/", "anchor")
+      }
+
+      builtin.live_grep({
+        search_dirs = search_dirs,
+        prompt_title = "Search in multiple repositories"
+      })
+    end, { desc = '[S]earch in S[O]lana source' })
   end
 }
