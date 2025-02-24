@@ -57,7 +57,7 @@ return {
 
       builtin.live_grep({
         search_dirs = search_dirs,
-        prompt_title = "Search in multiple repositories"
+        prompt_title = "Search in Solana and Anchor files"
       })
     end, { desc = '[S]earch in S[O]lana source' })
   end
