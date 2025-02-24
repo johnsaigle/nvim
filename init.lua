@@ -230,11 +230,18 @@ require 'options'
 require 'treesitter'
 
 -- [[ Go - ray-x go.nvim ]]
-local goconfig = require("goconfig")
-require('go').setup(goconfig)
+-- require('go')
+require('go').setup()
+local gotest = require("go.null_ls").gotest()
+local null_ls = require("null-ls")
+
+null_ls.register(gotest)
+-- local sources = {
+--   null_ls.builtins.diagnostics.revive,
+-- }
 
 -- [[ GoPls ]]
-require 'gopls'
+-- require 'gopls'
 
 -- [[ devcontainer support ]]
 require("devcontainer").setup {}
