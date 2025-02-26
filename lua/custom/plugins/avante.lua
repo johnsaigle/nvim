@@ -44,9 +44,9 @@ return {
                 handler_opts.on_chunk(content)
             end
         end,
-        parse_response_data = function(data_stream, event_state, opts)
-          require("avante.providers").copilot.parse_response(data_stream, event_state, opts)
-        end,
+        -- parse_response_data = function(data_stream, event_state, opts)
+        --   require("avante.providers").copilot.parse_response(data_stream, event_state, opts)
+        -- end,
       },
     },
     behaviour = {
