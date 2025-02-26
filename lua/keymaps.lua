@@ -93,9 +93,11 @@ vim.api.nvim_create_autocmd("FileType", {
 -- [ Markdown keymaps ]
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
-  callback = function()
-    -- Insert bullet point
-    vim.keymap.set("n", "<leader>bu", function()
+  callback = function(args)
+    -- Add triple backtick on next line, then return to this one.
+    nmap(args.buf, "<leader>bt", 'o```<Esc>k', "Insert triple [B]ack[T]icks")
+
+    nmap(args.buf, "<leader>bu", function()
       -- Save current cursor position
       local win = vim.api.nvim_get_current_win()
       local cursor = vim.api.nvim_win_get_cursor(win)
@@ -106,7 +108,7 @@ vim.api.nvim_create_autocmd("FileType", {
       -- Restore cursor position (adjusting for the added characters)
       cursor[2] = cursor[2] + 2 -- adjust for "- " (2 characters)
       vim.api.nvim_win_set_cursor(win, cursor)
-    end)
+    end, "Insert [B]ullet [P]oint")
   end
 })
 
