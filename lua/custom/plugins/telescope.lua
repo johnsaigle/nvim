@@ -36,6 +36,7 @@ return {
       })
     end, { desc = '[/] Fuzzily search in current buffer' })
 
+    -- General keymaps
     vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -46,6 +47,29 @@ return {
       builtin.grep_string({ search = word })
     end, { desc = '[S]earch current big [W]ord' })
 
+    -- Search ~/audits
+    vim.keymap.set('n', '<leader>sa', function()
+      local search_dirs = {
+        "~/audits",
+      }
+      builtin.live_grep({
+        search_dirs = search_dirs,
+        prompt_title = "Search audit notes directory"
+      })
+    end, { desc = '[S]earch in [A]udit notes' })
+
+    -- Search ~/notes
+    vim.keymap.set('n', '<leader>sn', function()
+      local search_dirs = {
+        "~/notes",
+      }
+      builtin.live_grep({
+        search_dirs = search_dirs,
+        prompt_title = "Search notes"
+      })
+    end, { desc = '[S]earch [N]otes' })
+
+    -- Search Solana and Anchor source files
     vim.keymap.set('n', '<leader>so', function()
       local search_dirs = {
         -- TODO: Should probably add all of the Solana core repositories now that they're split out of the monorepo
