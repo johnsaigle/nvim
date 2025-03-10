@@ -81,6 +81,8 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
     -- Alias for :GoIfErr from gopls: type-aware error handling.
     nmap(args.buf, '<leader>ee', '<cmd>GoIfErr<cr>', "Insert if-err check")
+    -- Alias for :GoAddTest from gopls
+    nmap(args.buf, '<leader>ea', '<cmd>GoAddTest<cr>', "Add test for function")
     -- Format a byte string
     nmap(args.buf, '<leader>fb', 'ifmt.Sprintf("%x", byteStr)<Esc>Fb', "Format byte string")
     -- comma ok pattern
