@@ -76,7 +76,8 @@ return {
         -- TODO: Add a warning if these paths don't exist.
         vim.fs.joinpath("~/coding/", "agave"),
         vim.fs.joinpath("~/coding/", "solana-spl-token"),
-        vim.fs.joinpath("~/coding/", "anchor")
+        vim.fs.joinpath("~/coding/", "anchor"),
+        vim.fs.joinpath("~/coding/", "token2022")
       }
 
       builtin.live_grep({
