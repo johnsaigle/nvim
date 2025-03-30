@@ -122,22 +122,6 @@ require('lazy').setup({
         ["@markup.markdown.block"] = { fg = "gold" },
       }
     },
-    -- Go tools
-    -- https://github.com/ray-x/go.nvim?tab=readme-ov-file#lazynvim
-    {
-      "ray-x/go.nvim",
-      dependencies = { -- optional packages
-        "ray-x/guihua.lua",
-        "neovim/nvim-lspconfig",
-        "nvim-treesitter/nvim-treesitter",
-      },
-      config = function()
-        require("go")
-      end,
-      event = { "CmdlineEnter" },
-      ft = { "go", 'gomod' },
-      build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-    },
     -- Rainbow highlighting for delimiters
     {
       'HiPhish/rainbow-delimiters.nvim',
@@ -229,20 +213,6 @@ require 'options'
 -- [[ Treesitter ]]
 require 'treesitter'
 
--- [[ Go - ray-x go.nvim ]]
--- require('go')
-require('go').setup()
-local gotest = require("go.null_ls").gotest()
-local null_ls = require("null-ls")
-
-null_ls.register(gotest)
--- local sources = {
---   null_ls.builtins.diagnostics.revive,
--- }
-
--- [[ GoPls ]]
--- require 'gopls'
-
 -- [[ devcontainer support ]]
 require("devcontainer").setup {}
 
@@ -318,6 +288,7 @@ local servers = {
   bashls = {},
   pyright = {},
   rust_analyzer = {},
+  gopls = {},
   yamlls = {},
   solidity_ls = {},
   -- tsserver = {},
