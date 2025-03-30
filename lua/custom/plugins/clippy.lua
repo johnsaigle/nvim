@@ -1,8 +1,6 @@
 return {
   'johnsaigle/clippy.nvim',
   dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
-  dir = '~/coding/clippy.nvim',
-
   config = function()
     local clippy = require('clippy')
     clippy.setup({})
