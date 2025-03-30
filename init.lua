@@ -335,6 +335,16 @@ local servers = {
     },
   },
 }
+local plsconfig = {
+  cmd = { vim.fn.expand("~/perl5/bin/pls") }, -- complete path to where PLS is located
+  settings = {
+    pls = {
+      perlcritic = { enabled = true },
+      syntax = { enabled = true },
+    },
+  }
+}
+require('lspconfig').perlpls.setup(plsconfig)
 
 -- Rust LSP configuration
 require('lspconfig').rust_analyzer.setup {
@@ -414,6 +424,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
+    
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
