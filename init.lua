@@ -288,7 +288,7 @@ local servers = {
   bashls = {},
   pyright = {},
   rust_analyzer = {},
-  gopls = {},
+  -- gopls = {},
   yamlls = {},
   solidity_ls = {},
   -- tsserver = {},
@@ -315,7 +315,11 @@ local plsconfig = {
     },
   }
 }
-require('lspconfig').perlpls.setup(plsconfig)
+-- require('lspconfig').perlpls.setup(plsconfig)
+
+-- gopls 
+require('lspconfig').gopls.setup(plsconfig)
+vim.lsp.enable('gopls')
 
 -- Rust LSP configuration
 require('lspconfig').rust_analyzer.setup {
