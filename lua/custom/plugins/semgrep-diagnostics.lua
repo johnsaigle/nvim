@@ -1,6 +1,6 @@
 return {
   'johnsaigle/semgrep-diagnostics.nvim',
-  dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
+  dependencies = { 'nvimtools/none-ls.nvim' },
   config = function()
     require('semgrep-diagnostics').setup({
       enabled = false,
