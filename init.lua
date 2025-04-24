@@ -18,6 +18,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+    {
+      "olimorris/codecompanion.nvim",
+      opts = {},
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+      },
+    },
     -- Git related plugins
     'tpope/vim-rhubarb',
 
@@ -170,6 +178,37 @@ require('lazy').setup({
   }
 )
 
+-- codecompanion
+require("codecompanion").setup({
+  strategies = {
+    chat = {
+      adapter = "llama3",
+    },
+  },
+  adapters = {
+    llama3 = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "llama3", -- Give this adapter a different name to differentiate it from the default ollama adapter
+        schema = {
+          model = {
+            default = "llama3.2:latest",
+          },
+        },
+      })
+    end,
+    deepseekr1 = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "deepseekr1", -- Give this adapter a different name to differentiate it from the default ollama adapter
+        schema = {
+          model = {
+            default = "deepseek-r1:latest",
+          },
+        },
+      })
+    end,
+  },
+})
+
 -- [[ Colour Scheme ]]
 require("rose-pine").setup({
   highlight_groups = {
@@ -317,7 +356,7 @@ local plsconfig = {
 }
 -- require('lspconfig').perlpls.setup(plsconfig)
 
--- gopls 
+-- gopls
 require('lspconfig').gopls.setup(plsconfig)
 vim.lsp.enable('gopls')
 
@@ -399,7 +438,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    
+
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
