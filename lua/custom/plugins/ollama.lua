@@ -133,6 +133,19 @@ Please summarize this text. Additional instructions: $input. Here is the text: $
         model = "llama3.2",
         action = "display",
       },
+      Commit_Message_From_Diff = {
+        prompt = [[
+Generate a concise git commit message based on this code diff which contains new code. This will be added to version control,
+so it should explain to other developer what the changes do.
+
+===DIFF===
+$sel
+===END DIFF===
+            ]],
+        input_label = "> ",
+        model = "llama3.2",
+        action = "display",
+      },
     }
     -- View the actual default prompts in ./lua/ollama/prompts.lua
     -- prompts = {
