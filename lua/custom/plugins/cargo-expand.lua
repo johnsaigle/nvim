@@ -1,6 +1,6 @@
 return {
   'johnsaigle/cargo-expand.nvim',
-  dependencies = { 'jose-elias-alvarez/null-ls.nvim' },
+  dependencies = { 'nvimtools/none-ls.nvim' },
 
   config = function()
     require('cargo-expand').setup({})
