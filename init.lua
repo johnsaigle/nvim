@@ -184,6 +184,9 @@ require("codecompanion").setup({
     chat = {
       adapter = "llama3",
     },
+    inline = {
+      adapater = "llama3",
+    },
   },
   adapters = {
     llama3 = function()
