@@ -326,11 +326,10 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- note: go is configured via go.nvim
   bashls = {},
   pyright = {},
   rust_analyzer = {},
-  -- gopls = {},
+  gopls = {},
   yamlls = {},
   solidity_ls = {},
   -- tsserver = {},
@@ -348,20 +347,22 @@ local servers = {
     },
   },
 }
-local plsconfig = {
-  cmd = { vim.fn.expand("~/perl5/bin/pls") }, -- complete path to where PLS is located
-  settings = {
-    pls = {
-      perlcritic = { enabled = true },
-      syntax = { enabled = true },
-    },
-  }
-}
--- require('lspconfig').perlpls.setup(plsconfig)
+
+-- local plsconfig = {
+--   cmd = { vim.fn.expand("~/perl5/bin/pls") }, -- complete path to where PLS is located
+--   settings = {
+--     pls = {
+--       perlcritic = { enabled = true },
+--       syntax = { enabled = true },
+--     },
+--   }
+-- }
+-- -- require('lspconfig').perlpls.setup(plsconfig)
+--
 
 -- gopls
-require('lspconfig').gopls.setup(plsconfig)
-vim.lsp.enable('gopls')
+-- vim.lsp.config.gopls()
+-- vim.lsp.enable('gopls')
 
 -- Rust LSP configuration
 require('lspconfig').rust_analyzer.setup {
