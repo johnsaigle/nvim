@@ -185,7 +185,7 @@ require("codecompanion").setup({
       adapter = "llama3",
     },
     inline = {
-      adapater = "llama3",
+      adapater = "gemma3qat",
     },
   },
   adapters = {
@@ -209,7 +209,18 @@ require("codecompanion").setup({
         },
       })
     end,
+    gemma3 = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "gemma3qat", -- Give this adapter a different name to differentiate it from the default ollama adapter
+        schema = {
+          model = {
+            default = "gemma3:12b-it-qat",
+          },
+        },
+      })
+    end,
   },
+
 })
 
 -- [[ Colour Scheme ]]
