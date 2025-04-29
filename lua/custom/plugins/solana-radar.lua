@@ -3,8 +3,8 @@ return {
   dependencies = { 'nvimtools/none-ls.nvim' },
 
   config = function()
-    local radar = require('solana-radar')
-    radar.setup({ enabled = false })
+    -- local radar = require('solana-radar')
+    -- radar.setup({ enabled = false })
 
     -- TODO: properly expose radar.scan
     -- vim.api.nvim_create_autocmd("FileType", {
