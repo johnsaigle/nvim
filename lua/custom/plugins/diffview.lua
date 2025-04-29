@@ -39,7 +39,6 @@ return {
         })
         vim.api.nvim_set_hl(0, "DiffviewDiffChange", {
           bg = "#4b6a96", -- Very distinct highlight
-          nocombine = true,
         })
       end,
     })
