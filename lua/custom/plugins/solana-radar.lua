@@ -1,6 +1,6 @@
 return {
   'johnsaigle/solana-radar.nvim',
-  dependencies = { "jose-elias-alvarez/null-ls.nvim" },
+  dependencies = { 'nvimtools/none-ls.nvim' },
 
   config = function()
     local radar = require('solana-radar')
