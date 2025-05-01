@@ -34,11 +34,7 @@ return {
         --   bg = "#58b5e3", -- Bright blue for changed text
         -- })
         vim.api.nvim_set_hl(0, "DiffText", {
-          bg = "#3e8fb0", -- Rose Pine Moon overlay blue
-          fg = "#e0def4", -- Rose Pine Moon text color
-        })
-        vim.api.nvim_set_hl(0, "DiffviewDiffChange", {
-          bg = "#4b6a96", -- Very distinct highlight
+          bg = "#00354a", -- Rose Pine Moon overlay blue
         })
       end,
     })
