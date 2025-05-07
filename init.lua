@@ -26,6 +26,9 @@ require('lazy').setup({
         "nvim-treesitter/nvim-treesitter",
       },
     },
+    -- Mason is pinned to version 1 for now: https://github.com/LazyVim/LazyVim/issues/6039
+    { "mason-org/mason.nvim",           version = "^1.0.0" },
+    { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
     -- Git related plugins
     'tpope/vim-rhubarb',
 
@@ -36,8 +39,8 @@ require('lazy').setup({
       'neovim/nvim-lspconfig',
       dependencies = {
         -- Automatically install LSPs to stdpath for neovim
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
+        'mason-org/mason.nvim',
+        'mason-org/mason-lspconfig.nvim',
 
         -- Useful status updates for LSP
         { 'j-hui/fidget.nvim', opts = {} },
