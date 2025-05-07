@@ -85,5 +85,19 @@ return {
         prompt_title = "Search in Solana and Anchor files"
       })
     end, { desc = '[S]earch in S[O]lana source' })
+
+    -- Search fabric prompts
+    vim.keymap.set('n', '<leader>sp', function()
+      local search_dirs = {
+        -- TODO: Add a warning if these paths don't exist.
+        "~/.config/fabric/patterns/",
+        "~/.config/custompatterns/",
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Search fabric patterns",
+      })
+    end, { desc = '[S]earch in [P]atterns (fabric)' })
   end
 }
