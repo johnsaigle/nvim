@@ -11,7 +11,6 @@ return {
         "~/coding/semgrep-rules",
         "~/coding/semgrep-scary-strings",
       },
-      default_severity = vim.diagnostic.severity.INFO,
     })
 
     -- TODO: add keymaps
