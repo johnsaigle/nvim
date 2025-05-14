@@ -69,7 +69,7 @@ return {
       })
     end, { desc = '[S]earch [N]otes' })
 
-    -- Search Solana and Anchor source files
+    -- Search Solana and Anchor source files -- Live Grep
     vim.keymap.set('n', '<leader>so', function()
       local search_dirs = {
         -- TODO: Should probably add all of the Solana core repositories now that they're split out of the monorepo
@@ -82,9 +82,26 @@ return {
 
       builtin.live_grep({
         search_dirs = search_dirs,
-        prompt_title = "Search in Solana and Anchor files"
+        prompt_title = "Grep in Solana and Anchor files"
       })
-    end, { desc = '[S]earch in S[O]lana source' })
+    end, { desc = '[S]earch in S[o]lana source lines' })
+
+    -- Search Solana and Anchor source files -- Find Files
+    vim.keymap.set('n', '<leader>sO', function()
+      local search_dirs = {
+        -- TODO: Should probably add all of the Solana core repositories now that they're split out of the monorepo
+        -- TODO: Add a warning if these paths don't exist.
+        vim.fs.joinpath("~/coding/", "agave"),
+        vim.fs.joinpath("~/coding/", "solana-spl-token"),
+        vim.fs.joinpath("~/coding/", "anchor"),
+        vim.fs.joinpath("~/coding/", "token2022")
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Find Solana and Anchor files"
+      })
+    end, { desc = '[S]earch in S[O]lana source (big O)' })
 
     -- Search fabric prompts
     vim.keymap.set('n', '<leader>sp', function()
