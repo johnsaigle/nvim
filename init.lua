@@ -343,6 +343,9 @@ local servers = {
   bashls = {},
   pyright = {},
   gopls = {},
+  -- Configure rust-analyzer like the other plugins, but it should be managed with rustup.
+  -- Use `:!which rust-analyzer` and make sure it's NOT installed by Mason.
+  rust_analyzer = {},
   yamlls = {},
   solidity_ls = {},
   -- tsserver = {},
