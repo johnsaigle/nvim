@@ -103,6 +103,36 @@ return {
       })
     end, { desc = '[S]earch in S[O]lana source (big O)' })
 
+    -- Search Cosmos-related files -- Live Grep
+    vim.keymap.set('n', '<leader>sc', function()
+      local search_dirs = {
+        -- TODO: Add a warning if these paths don't exist.
+        vim.fs.joinpath("~/coding/", "cosmos-sdk"),
+        vim.fs.joinpath("~/coding/", "cometbft"),
+        vim.fs.joinpath("~/coding/", "gaia"),
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Find Cosmos files"
+      })
+    end, { desc = '[S]earch in [C]osmos source files' })
+
+    -- Search Cosmos-related files -- Find Files
+    vim.keymap.set('n', '<leader>sC', function()
+      local search_dirs = {
+        -- TODO: Add a warning if these paths don't exist.
+        vim.fs.joinpath("~/coding/", "cosmos-sdk"),
+        vim.fs.joinpath("~/coding/", "cometbft"),
+        vim.fs.joinpath("~/coding/", "gaia"),
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Find Cosmos files"
+      })
+    end, { desc = '[S]earch in [C]osmos source (big C)' })
+
     -- Search fabric prompts
     vim.keymap.set('n', '<leader>sp', function()
       local search_dirs = {
