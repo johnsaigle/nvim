@@ -185,7 +185,7 @@ require('lazy').setup({
 require("codecompanion").setup({
   strategies = {
     chat = {
-      adapter = "llama3",
+      adapter = "qwen3",
     },
     inline = {
       adapater = "gemma3qat",
@@ -202,22 +202,22 @@ require("codecompanion").setup({
         },
       })
     end,
-    deepseekr1 = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "deepseekr1", -- Give this adapter a different name to differentiate it from the default ollama adapter
-        schema = {
-          model = {
-            default = "deepseek-r1:latest",
-          },
-        },
-      })
-    end,
     gemma3 = function()
       return require("codecompanion.adapters").extend("ollama", {
         name = "gemma3qat", -- Give this adapter a different name to differentiate it from the default ollama adapter
         schema = {
           model = {
             default = "gemma3:12b-it-qat",
+          },
+        },
+      })
+    end,
+    qwen3 = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "qwen3", -- Give this adapter a different name to differentiate it from the default ollama adapter
+        schema = {
+          model = {
+            default = "qwen3:latest",
           },
         },
       })
