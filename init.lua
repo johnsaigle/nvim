@@ -18,14 +18,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    {
-      "olimorris/codecompanion.nvim",
-      opts = {},
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
-      },
-    },
     -- Mason is pinned to version 1 for now: https://github.com/LazyVim/LazyVim/issues/6039
     { "mason-org/mason.nvim",           version = "^1.0.0" },
     { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
@@ -181,50 +173,6 @@ require('lazy').setup({
   }
 )
 
--- codecompanion
-require("codecompanion").setup({
-  strategies = {
-    chat = {
-      adapter = "qwen3",
-    },
-    inline = {
-      adapater = "gemma3qat",
-    },
-  },
-  adapters = {
-    llama3 = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "llama3", -- Give this adapter a different name to differentiate it from the default ollama adapter
-        schema = {
-          model = {
-            default = "llama3.2:latest",
-          },
-        },
-      })
-    end,
-    gemma3 = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "gemma3qat", -- Give this adapter a different name to differentiate it from the default ollama adapter
-        schema = {
-          model = {
-            default = "gemma3:12b-it-qat",
-          },
-        },
-      })
-    end,
-    qwen3 = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "qwen3", -- Give this adapter a different name to differentiate it from the default ollama adapter
-        schema = {
-          model = {
-            default = "qwen3:latest",
-          },
-        },
-      })
-    end,
-  },
-
-})
 
 -- [[ Colour Scheme ]]
 require("rose-pine").setup({
