@@ -57,10 +57,16 @@ vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (vis
 -- Shortcut to `:Format` (LSP)
 vim.keymap.set('n', '<leader>fm', ':Format<CR>', { desc = "[F]or[M]at" })
 
+-- [ Git keymaps ]
+
+-- Relies on vim-fugitive plugin
+vim.keymap.set('v', '<leader>gl', ':GBrowse<CR>', { desc = "[G]it [B]rowse (opens in browser)" })
+
 -- Normal-mode keymap. Uses current buffer to configure keymaps only for certain filetypes.
 local nmap = function(bufnr, keys, func, desc)
   vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 end
+
 
 -- [ Lua keymaps ]
 vim.api.nvim_create_autocmd("FileType", {
