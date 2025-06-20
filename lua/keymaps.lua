@@ -87,12 +87,6 @@ vim.api.nvim_create_autocmd("FileType", {
     nmap(args.buf, '<leader>ee', '<cmd>GoIfErr<cr>', "Insert if-err check")
     -- Alias for :GoAddTest from gopls
     nmap(args.buf, '<leader>ea', '<cmd>GoAddTest<cr>', "Add test for function")
-    -- Format a byte string
-    nmap(args.buf, '<leader>fb', 'ifmt.Sprintf("%x", byteStr)<Esc>Fb', "Format byte string")
-    -- comma ok pattern
-    nmap(args.buf, '<leader>eo', 'oif item, ok := collection[key]; !ok {<CR>}<Esc>O<Esc>', "Insert comma ok pattern")
-    -- create new error and change contents in quotes
-    nmap(args.buf, '<leader>en', 'ierrors.New("")<Esc>2F"ci"', "Insert errors.New")
   end,
 })
 
