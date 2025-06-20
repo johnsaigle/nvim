@@ -1,4 +1,5 @@
 # Cheatsheet for keymaps: https://codecompanion.olimorris.dev/usage/chat-buffer/#keymaps
+
 return {
   "olimorris/codecompanion.nvim",
   opts = {},
@@ -124,7 +125,7 @@ return {
               short_name = short_name,
               is_slash_cmd = true,
               auto_submit = false,
-              user_prompt = true,
+              user_prompt = false,
             },
             prompts = {
               {
@@ -163,13 +164,23 @@ return {
 
     if vim.tbl_count(fabric_prompts) > 0 then
       vim.notify("Loaded " .. vim.tbl_count(fabric_prompts) .. " fabric patterns into CodeCompanion", vim.log.levels
-      .INFO)
+        .INFO)
     end
+
+    -- Keymaps: https://codecompanion.olimorris.dev/getting-started.html#suggested-plugin-workflow
+    vim.keymap.set({ "n", "v" }, "<C-a>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+    vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+    -- Expand 'cc' into 'CodeCompanion' in the command line
+    vim.cmd([[cab cc CodeCompanion]])
 
     -- Use local LLMs by default.
     require("codecompanion").setup({
 
       prompt_library = vim.tbl_extend("force", {}, fabric_prompts),
+      display = {
+        chat = { show_settings = true },
+      },
 
       strategies = {
         cmd = {
@@ -198,6 +209,11 @@ return {
           return require("codecompanion.adapters").extend("gemini", {
             env = {
               api_key = read_api_key(os.getenv("HOME") .. "/.config/codecompanion/api-keys/gemini")
+            },
+            schema = {
+              model = {
+                default = "gemini-2.5-flash",
+              },
             },
           })
         end,
