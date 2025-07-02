@@ -57,6 +57,12 @@ vim.keymap.set('n', '<leader>ll', ':set list!<CR>', { desc = "Toggle [L]ist (vis
 -- Shortcut to `:Format` (LSP)
 vim.keymap.set('n', '<leader>fm', ':Format<CR>', { desc = "[F]or[M]at" })
 
+-- Print the date
+vim.keymap.set('n', '<leader>da', function()
+  local date = vim.fn.system('date +%Y-%m-%d'):gsub('\n', '')
+  vim.api.nvim_put({date}, 'c', true, true)
+end, { desc = "[D][A]te" })
+
 -- [ Git keymaps ]
 
 -- Relies on vim-fugitive plugin
