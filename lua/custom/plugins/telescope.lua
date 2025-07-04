@@ -134,6 +134,36 @@ return {
       })
     end, { desc = '[S]earch in [C]osmos source (big C)' })
 
+    -- Search Wormhole-related files -- Live Grep
+    vim.keymap.set('n', '<leader>sw', function()
+      local search_dirs = {
+        -- TODO: Add a warning if these paths don't exist.
+        vim.fs.joinpath("~/coding/", "wormhole"),
+        vim.fs.joinpath("~/coding/", "native-token-transfers"),
+        vim.fs.joinpath("~/coding/", "watchdog"),
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Find Wormhole files"
+      })
+    end, { desc = '[S]earch in [w]ormhole source files' })
+
+    -- Search Wormhole-related files -- Find Files
+    vim.keymap.set('n', '<leader>sW', function()
+      local search_dirs = {
+        -- TODO: Add a warning if these paths don't exist.
+        vim.fs.joinpath("~/coding/", "wormhole"),
+        vim.fs.joinpath("~/coding/", "native-token-transfers"),
+        vim.fs.joinpath("~/coding/", "watchdog"),
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Find Wormhole files"
+      })
+    end, { desc = '[S]earch in [W]ormhole source (big W)' })
+
     -- Search fabric prompts
     vim.keymap.set('n', '<leader>sp', function()
       local search_dirs = {
