@@ -3,7 +3,7 @@ return {
   dependencies = { 'nvimtools/none-ls.nvim' },
   config = function()
     require('semgrep-diagnostics').setup({
-      enabled = false,
+      enabled = true,
       filetypes = { "sh", "bash", "lua", "rust", "go", "solidity" },
       semgrep_config = {
         "p/trailofbits",
