@@ -179,7 +179,7 @@ return {
 
       prompt_library = vim.tbl_extend("force", {}, fabric_prompts),
       display = {
-        chat = { show_settings = true },
+        chat = { show_settings = false },
       },
 
       strategies = {
