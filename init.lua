@@ -296,7 +296,13 @@ local servers = {
   rust_analyzer = {},
   yamlls = {},
   solidity_ls = {},
-  -- tsserver = {},
+  -- TODO: This isn't working currently, issue is 'Cannot serialise function: type not supported'
+  -- move_analyzer = {
+  --   cmd = { os.getenv("HOME") .. "/.cargo/bin/move-analyzer" },
+  --   filetypes = { "move" },
+  --   root_dir = require("lspconfig.util").root_pattern("Move.toml", ".git"),
+  -- },
+  ts_ls = {},
 
   lua_ls = {
     Lua = {
@@ -312,6 +318,7 @@ local servers = {
   },
 }
 
+-- Perl config, not currently needed.
 -- local plsconfig = {
 --   cmd = { vim.fn.expand("~/perl5/bin/pls") }, -- complete path to where PLS is located
 --   settings = {
