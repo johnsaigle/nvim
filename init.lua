@@ -296,12 +296,7 @@ local servers = {
   rust_analyzer = {},
   yamlls = {},
   solidity_ls = {},
-  -- TODO: This isn't working currently, issue is 'Cannot serialise function: type not supported'
-  -- move_analyzer = {
-  --   cmd = { os.getenv("HOME") .. "/.cargo/bin/move-analyzer" },
-  --   filetypes = { "move" },
-  --   root_dir = require("lspconfig.util").root_pattern("Move.toml", ".git"),
-  -- },
+
   ts_ls = {},
 
   lua_ls = {
@@ -491,6 +486,25 @@ if not configs.sway_lsp then
 end
 
 lspconfig.sway_lsp.setup {}
+
+--- Install Sui Move Analyzer as a custom server
+-- Check if the config is already defined (useful when reloading this file)
+if not configs.sui_move_analyzer then
+  configs.sui_move_analyzer = {
+    default_config = {
+      cmd = { os.getenv("HOME") .. "/.cargo/bin/sui-move-analyzer" },
+      filetypes = { 'move' },
+      on_attach = on_attach,
+      capabilities = capabilities,
+      root_dir = function(fname)
+        return lspconfig.util.root_pattern("Move.toml", ".git")(fname)
+      end,
+      settings = {},
+    },
+  }
+end
+
+lspconfig.sui_move_analyzer.setup {}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
