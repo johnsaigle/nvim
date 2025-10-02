@@ -295,7 +295,7 @@ local servers = {
   -- Use `:!which rust-analyzer` and make sure it's NOT installed by Mason.
   rust_analyzer = {},
   yamlls = {},
-  solidity_ls = {},
+  -- solidity_ls = {},
 
   ts_ls = {},
 
