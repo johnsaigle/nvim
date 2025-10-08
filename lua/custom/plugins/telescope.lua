@@ -78,7 +78,8 @@ return {
         vim.fs.joinpath("~/coding/", "anchor"),
         vim.fs.joinpath("~/coding/", "associated-token-account"),
         vim.fs.joinpath("~/coding/", "solana-spl-token"),
-        vim.fs.joinpath("~/coding/", "token-2022")
+        vim.fs.joinpath("~/coding/", "token-2022"),
+        vim.fs.joinpath("~/coding/", "sbpf")
       }
 
       builtin.live_grep({
@@ -93,9 +94,11 @@ return {
         -- TODO: Should probably add all of the Solana core repositories now that they're split out of the monorepo
         -- TODO: Add a warning if these paths don't exist.
         vim.fs.joinpath("~/coding/", "agave"),
-        vim.fs.joinpath("~/coding/", "solana-spl-token"),
         vim.fs.joinpath("~/coding/", "anchor"),
-        vim.fs.joinpath("~/coding/", "token2022")
+        vim.fs.joinpath("~/coding/", "associated-token-account"),
+        vim.fs.joinpath("~/coding/", "solana-spl-token"),
+        vim.fs.joinpath("~/coding/", "token-2022"),
+        vim.fs.joinpath("~/coding/", "sbpf")
       }
 
       builtin.find_files({
