@@ -341,11 +341,12 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
+    vim.lsp.config(server_name, {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
-    }
+    })
+    vim.lsp.enable(server_name)
   end,
 }
 
@@ -462,49 +463,32 @@ hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_ex
 --  au BufRead,BufNewFile *.qnt
 --  setfiletype quint
 
---- Install Sway LSP as a custom	server
-local lspconfig = require 'lspconfig'
-local configs = require 'lspconfig.configs'
+--- Install Sway LSP as a custom server
+vim.lsp.config('sway_lsp', {
+  cmd = { 'forc-lsp' },
+  filetypes = { 'sway' },
+  on_attach = on_attach,
+  init_options = {
+    -- Any initialization options
+    logging = { level = 'trace' }
+  },
+  root_dir = vim.fs.root(0, '.git'),
+  settings = {},
+})
 
--- Check if the config is already defined (useful when reloading this file)
-if not configs.sway_lsp then
-  configs.sway_lsp = {
-    default_config = {
-      cmd = { 'forc-lsp' },
-      filetypes = { 'sway' },
-      on_attach = on_attach,
-      init_options = {
-        -- Any initialization options
-        logging = { level = 'trace' }
-      },
-      root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname)
-      end,
-      settings = {},
-    },
-  }
-end
-
-lspconfig.sway_lsp.setup {}
+vim.lsp.enable('sway_lsp')
 
 --- Install Sui Move Analyzer as a custom server
--- Check if the config is already defined (useful when reloading this file)
-if not configs.sui_move_analyzer then
-  configs.sui_move_analyzer = {
-    default_config = {
-      cmd = { os.getenv("HOME") .. "/.cargo/bin/sui-move-analyzer" },
-      filetypes = { 'move' },
-      on_attach = on_attach,
-      capabilities = capabilities,
-      root_dir = function(fname)
-        return lspconfig.util.root_pattern("Move.toml", ".git")(fname)
-      end,
-      settings = {},
-    },
-  }
-end
+vim.lsp.config('sui_move_analyzer', {
+  cmd = { os.getenv("HOME") .. "/.cargo/bin/sui-move-analyzer" },
+  filetypes = { 'move' },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = vim.fs.root(0, { "Move.toml", ".git" }),
+  settings = {},
+})
 
-lspconfig.sui_move_analyzer.setup {}
+vim.lsp.enable('sui_move_analyzer')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
