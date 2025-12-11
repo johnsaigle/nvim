@@ -4,6 +4,8 @@ return {
     "johnsaigle/sast-nvim",
     "nvimtools/none-ls.nvim",
   },
+  -- Use local fork
+  dir = "~/coding/revive.nvim",
   config = function()
     -- TODO: Rename module
     require("revive-diagnostics").setup({
