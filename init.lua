@@ -297,6 +297,7 @@ local servers = {
   yamlls = {},
   -- solidity_ls = {},
 
+  -- NOTE: fka. tsserver
   ts_ls = {},
 
   lua_ls = {
