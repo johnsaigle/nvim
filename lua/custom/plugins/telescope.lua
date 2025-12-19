@@ -180,5 +180,37 @@ return {
         prompt_title = "Search fabric patterns",
       })
     end, { desc = '[S]earch in [P]atterns (fabric)' })
+
+    -- Search Go stdlib and packages -- Live Grep
+    vim.keymap.set('n', '<leader>sd', function()
+      local goroot = vim.fn.system('go env GOROOT'):gsub('\n', '')
+      local gopath = vim.fn.system('go env GOPATH'):gsub('\n', '')
+      
+      local search_dirs = {
+        vim.fs.joinpath(goroot, "src"),  -- Go stdlib source
+        vim.fs.joinpath(gopath, "pkg", "mod"),  -- Downloaded Go modules
+      }
+
+      builtin.live_grep({
+        search_dirs = search_dirs,
+        prompt_title = "Grep in Go stdlib and packages"
+      })
+    end, { desc = '[S]earch Go stan[D]ard lib' })
+
+    -- Search Go stdlib and packages -- Find Files
+    vim.keymap.set('n', '<leader>sD', function()
+      local goroot = vim.fn.system('go env GOROOT'):gsub('\n', '')
+      local gopath = vim.fn.system('go env GOPATH'):gsub('\n', '')
+      
+      local search_dirs = {
+        vim.fs.joinpath(goroot, "src"),  -- Go stdlib source
+        vim.fs.joinpath(gopath, "pkg", "mod"),  -- Downloaded Go modules
+      }
+
+      builtin.find_files({
+        search_dirs = search_dirs,
+        prompt_title = "Find Go stdlib and package files"
+      })
+    end, { desc = '[S]earch Go stan[D]ard lib files (big D)' })
   end
 }
