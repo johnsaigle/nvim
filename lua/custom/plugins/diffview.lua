@@ -14,7 +14,8 @@ return {
     -- Keymaps
     vim.keymap.set('n', '<leader>dvt', '<cmd>DiffviewToggleFiles<cr>', { desc = '[D]iff[V]iew [T]oggle Files' })
     vim.keymap.set('n', '<leader>dvc', '<cmd>DiffviewClose<cr>', { desc = '[D]iff[V]iew [C]lose' })
-    vim.keymap.set('n', '<leader>dvh', '<cmd>DiffviewFileHistory<cr>', { desc = '[D]iff[V]iew File [H]istory' })
+    -- opens DiffviewFileHistory for the current buffer. By default, it seems to open the whole history for the project
+    vim.keymap.set('n', '<leader>dvh', '<cmd>DiffviewFileHistory %<cr>', { desc = '[D]iff[V]iew File [H]istory' })
 
     -- Set up an autocmd to ensure highlights are reapplied after colorscheme changes
     vim.api.nvim_create_autocmd("ColorScheme", {
