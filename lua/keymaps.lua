@@ -21,7 +21,9 @@ local function insertFullPath()
 end
 
 vim.keymap.set('n', '<leader>pc', insertFullPath,
-  { desc = '[pc] Yank filename to system [C]lipboard ', noremap = true, silent = true })
+  { desc = '[pc] Yank filepath to system [c]lipboard ', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>pC', insertFullPath,
+  { desc = '[pC] Yank basename to system [C]lipboard ', noremap = true, silent = true })
 -- Go to the nvim file explorer with a new key command
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = "open nvim file explorer" })
 
