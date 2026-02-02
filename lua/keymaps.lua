@@ -42,7 +42,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-
 -- Toggles most recent buffers
 vim.keymap.set('n', '<leader>;', '<C-^>', { desc = "Toggle most recent buffers" })
 
@@ -64,6 +63,10 @@ vim.keymap.set('n', '<leader>da', function()
   local date = vim.fn.system('date +%Y-%m-%d'):gsub('\n', '')
   vim.api.nvim_put({date}, 'c', true, true)
 end, { desc = "[D][A]te" })
+
+-- Open deepwiki for the current project
+-- `dw` generates a URL
+vim.keymap.set('n', '<leader>dw', '!open $(dw .)<CR>', { desc = "Open [D]eep[W]iki" })
 
 -- [ Git keymaps ]
 
