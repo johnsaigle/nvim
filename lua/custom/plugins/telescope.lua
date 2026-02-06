@@ -78,6 +78,7 @@ return {
         vim.fs.joinpath("~/coding/", "anchor"),
         vim.fs.joinpath("~/coding/", "associated-token-account"),
         vim.fs.joinpath("~/coding/", "solana-spl-token"),
+        vim.fs.joinpath("~/coding/", "token"),
         vim.fs.joinpath("~/coding/", "token-2022"),
         vim.fs.joinpath("~/coding/", "sbpf")
       }
@@ -98,7 +99,9 @@ return {
         vim.fs.joinpath("~/coding/", "associated-token-account"),
         vim.fs.joinpath("~/coding/", "solana-spl-token"),
         vim.fs.joinpath("~/coding/", "token-2022"),
-        vim.fs.joinpath("~/coding/", "sbpf")
+        vim.fs.joinpath("~/coding/", "sbpf"),
+        -- Solana system program
+        vim.fs.joinpath("~/coding/", "system")
       }
 
       builtin.find_files({
