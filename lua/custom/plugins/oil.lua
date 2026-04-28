@@ -1,5 +1,9 @@
 return {
   'stevearc/oil.nvim',
+  cmd = { 'Oil' },
+  keys = {
+    { '<leader>oi', '<cmd>Oil<cr>', desc = 'Open Oil file explorer' },
+  },
   ---@module 'oil'
   opts = {},
   -- Optional dependencies
@@ -9,7 +13,5 @@ return {
     local oil = require('oil')
     oil.setup({})
 
-    -- Alias for `:Oil`
-    vim.keymap.set('n', '<leader>oi', '<cmd>Oil<cr>', {desc = 'Open Oil file explorer'})
   end
 }

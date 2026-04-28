@@ -5,7 +5,6 @@ return {
     "nvimtools/none-ls.nvim",
   },
   config = function()
-    -- TODO: Rename module
     require("revive-diagnostics").setup({
       -- Optional: customize configuration
       enabled = true,

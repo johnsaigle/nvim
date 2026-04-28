@@ -1,6 +1,5 @@
--- TODO Finish this task
--- TODO include this file in `init.lua`
--- --> Add a 'cite' command that:
+-- WIP: Git citation command
+-- Add a 'cite' command that:
 --     - looks at highlighted lines
 --     - grabs line numbers
 --     - grabs current git commit hash and remote/URL

@@ -1,5 +1,37 @@
 return {
   "folke/trouble.nvim",
+  cmd = { 'Trouble' },
+  keys = {
+    { '<leader>xt', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Toggle trouble diagnostics' },
+    {
+      '<leader>xn',
+      function()
+        require('trouble').next({ skip_groups = false, jump = true })
+      end,
+      desc = 'Next trouble item',
+    },
+    {
+      '<leader>xN',
+      function()
+        require('trouble').next({ skip_groups = true, jump = true })
+      end,
+      desc = 'Next trouble item by group',
+    },
+    {
+      '<leader>xp',
+      function()
+        require('trouble').prev({ skip_groups = false, jump = true })
+      end,
+      desc = 'Previous trouble item',
+    },
+    {
+      '<leader>xP',
+      function()
+        require('trouble').prev({ skip_groups = true, jump = true })
+      end,
+      desc = 'Previous trouble item by group',
+    },
+  },
   opts = {
     win = {
       wo = {
@@ -9,27 +41,5 @@ return {
   },
   config = function()
     require('trouble').setup({})
-
-    local trouble = require('trouble')
-
-    vim.keymap.set('n', '<leader>xt', "<cmd>Trouble diagnostics toggle<cr>")
-
-    vim.keymap.set('n', '<leader>xn', function()
-      trouble.next({ skip_groups = false, jump = true })
-    end)
-
-    vim.keymap.set('n', '<leader>xN', function()
-      trouble.next({ skip_groups = true, jump = true })
-    end)
-
-    vim.keymap.set('n', '<leader>xp', function()
-      trouble.prev({ skip_groups = false, jump = true })
-    end)
-
-    vim.keymap.set('n', '<leader>xP', function()
-      trouble.prev({ skip_groups = true, jump = true })
-    end)
-
-
   end
 }

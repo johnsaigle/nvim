@@ -127,6 +127,23 @@ require('lazy').setup({
     -- CodeQL support
     {
       "pwntester/codeql.nvim",
+      ft = { 'ql' },
+      cmd = {
+        'QL',
+        'SetDatabase',
+        'UnsetDatabase',
+        'CancelQuery',
+        'RunQuery',
+        'QuickEvalPredicate',
+        'QuickEval',
+        'StopServer',
+        'History',
+        'PrintAST',
+        'LoadSarif',
+        'ArchiveTree',
+        'LoadMRVAScan',
+        'CopyPermalink',
+      },
       dependencies = {
         "MunifTanjim/nui.nvim",
         "nvim-lua/telescope.nvim",
@@ -187,13 +204,11 @@ vim.api.nvim_set_hl(0, "CurSearch", {
   bg = "#eb6f92", -- Rose Pine - "love"
   fg = "#ffffff",
   bold = true,
-  -- TODO Doesn't seem to work. Font issue or something else?
-  italic = true
+    italic = true
 })
 vim.api.nvim_set_hl(0, "Search", {
   bg = "#c4a7e7", -- Rose Pine - "iris"
   fg = "#eeeeee",
-  -- TODO Doesn't seem to work. Font issue or something else?
   italic = true
 })
 
@@ -202,30 +217,11 @@ vim.api.nvim_set_hl(0, "Search", {
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
--- [[ Harpoon ]]
-local harpoon = require('harpoon')
-harpoon:setup({})
-
 -- [[ Vim options ]]
 require 'options'
 
 -- [[ Treesitter ]]
 require 'treesitter'
-
-require('telescope').load_extension('harpoon')
--- Harpoon shorcuts
-vim.keymap.set("n", "<leader>f", function() harpoon:list():add() end)
-vim.keymap.set("n", "<C-f>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-vim.keymap.set("n", "<C-j>", function() harpoon:list():select(1) end)
-vim.keymap.set("n", "<C-k>", function() harpoon:list():select(2) end)
-vim.keymap.set("n", "<C-l>", function() harpoon:list():select(3) end)
--- TODO this doesn't respond: `;` is used for horizontal seeking
--- vim.keymap.set("n", "<C-;>", function() harpoon:list():select(4) end)
-
--- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -316,8 +312,6 @@ local servers = {
 --     },
 --   }
 -- }
--- -- require('lspconfig').perlpls.setup(plsconfig)
-
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -391,7 +385,7 @@ cmp.setup {
   },
 }
 
--- Configure raindow delimiters
+-- Configure rainbow delimiters
 
 -- This module contains a number of default definitions
 local rainbow_delimiters = require 'rainbow-delimiters'
@@ -451,10 +445,11 @@ require("ibl").setup { scope = { highlight = highlight } }
 hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
 -- Quint support
--- TODO convert this vimscript into a lua autocmd
--- autocmd FileType quint lua vim.lsp.start({name = 'quint', cmd = {'quint-language-server', '--stdio'}, root_dir = vim.fs.dirname()})
---  au BufRead,BufNewFile *.qnt
---  setfiletype quint
+-- Note: Quint LSP support is experimental. To enable, add an autocmd:
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "quint",
+--   callback = function() vim.lsp.start({name = 'quint', cmd = {'quint-language-server', '--stdio'}}) end,
+-- })
 
 --- Install Sway LSP as a custom server
 vim.lsp.config('sway_lsp', {

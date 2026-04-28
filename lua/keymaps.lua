@@ -1,7 +1,8 @@
 -- [ Generic keymaps ]
 
---  NOTE: The keymap is added in order to allow <space> to be <leader> while in Visual mode
--- https://neovim.discourse.group/t/how-do-i-use-space-as-the-leader-in-visual-mode/916-- Set <space> as the leader key
+-- NOTE: The keymap is added in order to allow <space> to be <leader> while in Visual mode
+-- https://neovim.discourse.group/t/how-do-i-use-space-as-the-leader-in-visual-mode/916
+-- Set <space> as the leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
