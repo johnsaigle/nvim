@@ -22,7 +22,7 @@ end
 
 local universal_ignores = {
   glob = {
-    '!*.lock', '!*.sum',
+    '!*.lock', '!*.sum', '!*.diff','!*.patch',
     '!**/node_modules/**',
     '!**/target/**',
     '!**/dist/**',
@@ -32,7 +32,7 @@ local universal_ignores = {
     '!**/.next/**',
   },
   lua = {
-    '%.lock$', '%.sum$',
+    '%.lock$', '%.sum$','%.patch$','%.diff$',
     'node_modules',
     'target',
     'dist',
@@ -124,7 +124,7 @@ return {
           search_dirs = {
             vim.fs.joinpath('~/coding/', 'wormhole'),
             vim.fs.joinpath('~/coding/', 'native-token-transfers'),
-            vim.fs.joinpath('~/coding/', 'watchdog'),
+            -- vim.fs.joinpath('~/coding/', 'watchdog'),
           },
           prompt_title = 'Grep Wormhole files',
           glob_pattern = vim.list_extend(vim.deepcopy(universal_ignores.glob), wormhole_ignores.glob),
@@ -139,7 +139,7 @@ return {
           search_dirs = {
             vim.fs.joinpath('~/coding/', 'wormhole'),
             vim.fs.joinpath('~/coding/', 'native-token-transfers'),
-            vim.fs.joinpath('~/coding/', 'watchdog'),
+            -- vim.fs.joinpath('~/coding/', 'watchdog'),
           },
           prompt_title = 'Find Wormhole files',
           file_ignore_patterns = vim.list_extend(vim.deepcopy(universal_ignores.lua), wormhole_ignores.lua),

@@ -2,6 +2,7 @@ return {
   'sindrets/diffview.nvim',
   cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory', 'DiffviewToggleFiles' },
   keys = {
+    { '<leader>dvo', '<cmd>DiffviewOpen<cr>', desc = '[D]iff[V]iew [O]pen' },
     { '<leader>dvt', '<cmd>DiffviewToggleFiles<cr>', desc = '[D]iff[V]iew [T]oggle Files' },
     { '<leader>dvc', '<cmd>DiffviewClose<cr>', desc = '[D]iff[V]iew [C]lose' },
     { '<leader>dvh', '<cmd>DiffviewFileHistory %<cr>', desc = '[D]iff[V]iew File [H]istory' },

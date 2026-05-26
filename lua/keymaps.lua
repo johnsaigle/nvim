@@ -74,6 +74,36 @@ vim.keymap.set('n', '<leader>dw', '!open $(dw .)<CR>', { desc = "Open [D]eep[W]i
 -- Relies on vim-fugitive plugin
 vim.keymap.set('v', '<leader>gl', ':GBrowse<CR>', { desc = "[G]it [B]rowse (opens in browser)" })
 
+-- Hunk navigation (gitsigns)
+vim.keymap.set('n', '<leader>gj', function()
+  require('gitsigns').next_hunk()
+end, { desc = '[G]it [J]ump to next hunk' })
+
+vim.keymap.set('n', '<leader>gk', function()
+  require('gitsigns').prev_hunk()
+end, { desc = '[G]it jump to pre[v]ious hunk' })
+
+-- Hunk actions (gitsigns)
+vim.keymap.set('n', '<leader>gs', function()
+  require('gitsigns').stage_hunk()
+end, { desc = '[G]it [S]tage hunk' })
+
+vim.keymap.set('n', '<leader>gr', function()
+  require('gitsigns').reset_hunk()
+end, { desc = '[G]it [R]eset hunk' })
+
+vim.keymap.set('n', '<leader>gp', function()
+  require('gitsigns').preview_hunk()
+end, { desc = '[G]it [P]review hunk' })
+
+-- Blame (gitsigns)
+vim.keymap.set('n', '<leader>gb', function()
+  require('gitsigns').blame_line { full = true }
+end, { desc = '[G]it [B]lame line' })
+
+-- Fugitive
+vim.keymap.set('n', '<leader>gg', '<cmd>Git<cr>', { desc = '[G]it Status' })
+
 -- Normal-mode keymap. Uses current buffer to configure keymaps only for certain filetypes.
 local nmap = function(bufnr, keys, func, desc)
   vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
