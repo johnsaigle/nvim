@@ -20,6 +20,34 @@ local function search_dirs_picker(picker, search_dirs, prompt_title)
   end
 end
 
+local universal_ignores = {
+  glob = {
+    '!*.lock', '!*.sum',
+    '!**/node_modules/**',
+    '!**/target/**',
+    '!**/dist/**',
+    '!**/build/**',
+    '!**/vendor/**',
+    '!**/__pycache__/**',
+    '!**/.next/**',
+  },
+  lua = {
+    '%.lock$', '%.sum$',
+    'node_modules',
+    'target',
+    'dist',
+    'build',
+    'vendor',
+    '__pycache__',
+    '.next',
+  },
+}
+
+local wormhole_ignores = {
+  glob = { '!*.json', '!*.pb.go', '!*_gen.go' },
+  lua = { '%.json$', '%.pb%.go$', '_gen%.go$' },
+}
+
 local function go_search_dirs()
   local goroot = vim.fn.system('go env GOROOT'):gsub('\n', '')
   local gopath = vim.fn.system('go env GOPATH'):gsub('\n', '')
@@ -91,29 +119,33 @@ return {
     },
     {
       '<leader>sw',
-      search_dirs_picker('find_files', {
-        vim.fs.joinpath('~/coding/', 'wormhole'),
-        vim.fs.joinpath('~/coding/', 'native-token-transfers'),
-        vim.fs.joinpath('~/coding/', 'watchdog'),
-      }, 'Find Wormhole files'),
+      function()
+        require('telescope.builtin').live_grep {
+          search_dirs = {
+            vim.fs.joinpath('~/coding/', 'wormhole'),
+            vim.fs.joinpath('~/coding/', 'native-token-transfers'),
+            vim.fs.joinpath('~/coding/', 'watchdog'),
+          },
+          prompt_title = 'Grep Wormhole files',
+          glob_pattern = vim.list_extend(vim.deepcopy(universal_ignores.glob), wormhole_ignores.glob),
+        }
+      end,
       desc = '[S]earch in [w]ormhole source files',
     },
     {
       '<leader>sW',
-      search_dirs_picker('find_files', {
-        vim.fs.joinpath('~/coding/', 'wormhole'),
-        vim.fs.joinpath('~/coding/', 'native-token-transfers'),
-        vim.fs.joinpath('~/coding/', 'watchdog'),
-      }, 'Find Wormhole files'),
-      desc = '[S]earch in [W]ormhole source (big W)',
-    },
-    {
-      '<leader>sp',
-      search_dirs_picker('find_files', {
-        '~/.config/fabric/patterns/',
-        '~/.config/custompatterns/',
-      }, 'Search fabric patterns'),
-      desc = '[S]earch in [P]atterns (fabric)',
+      function()
+        require('telescope.builtin').find_files {
+          search_dirs = {
+            vim.fs.joinpath('~/coding/', 'wormhole'),
+            vim.fs.joinpath('~/coding/', 'native-token-transfers'),
+            vim.fs.joinpath('~/coding/', 'watchdog'),
+          },
+          prompt_title = 'Find Wormhole files',
+          file_ignore_patterns = vim.list_extend(vim.deepcopy(universal_ignores.lua), wormhole_ignores.lua),
+        }
+      end,
+      desc = '[S]earch for [W]ormhole files',
     },
     {
       '<leader>sd',
@@ -139,6 +171,17 @@ return {
   config = function()
     require('telescope').setup {
       defaults = {
+        file_ignore_patterns = universal_ignores.lua,
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          '--hidden',
+        },
         layout_strategy = 'vertical',
         layout_config = {
           vertical = {

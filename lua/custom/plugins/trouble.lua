@@ -31,6 +31,11 @@ return {
       end,
       desc = 'Previous trouble item by group',
     },
+    { '<leader>xr', '<cmd>Trouble lsp_references toggle<cr>', desc = 'LSP References' },
+    { '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Document Symbols' },
+    { '<leader>xq', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List' },
+    { '<leader>xl', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List' },
+    { '<leader>xb', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics' },
   },
   opts = {
     win = {

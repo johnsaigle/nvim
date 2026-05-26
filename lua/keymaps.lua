@@ -96,9 +96,9 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "go",
   callback = function(args)
     -- Alias for :GoIfErr from gopls: type-aware error handling.
-    nmap(args.buf, '<leader>ee', '<cmd>GoIfErr<cr>', "Insert if-err check")
+    nmap(args.buf, '<leader>ge', '<cmd>GoIfErr<cr>', "Insert if-err check")
     -- Alias for :GoAddTest from gopls
-    nmap(args.buf, '<leader>ea', '<cmd>GoAddTest<cr>', "Add test for function")
+    nmap(args.buf, '<leader>ga', '<cmd>GoAddTest<cr>', "Add test for function")
   end,
 })
 
