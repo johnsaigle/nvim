@@ -71,9 +71,6 @@ vim.keymap.set('n', '<leader>dw', '!open $(dw .)<CR>', { desc = "Open [D]eep[W]i
 
 -- [ Git keymaps ]
 
--- Relies on vim-fugitive plugin
-vim.keymap.set('v', '<leader>gl', ':GBrowse<CR>', { desc = "[G]it [B]rowse (opens in browser)" })
-
 -- Hunk navigation (gitsigns)
 vim.keymap.set('n', '<leader>gj', function()
   require('gitsigns').next_hunk()
@@ -98,11 +95,11 @@ end, { desc = '[G]it [P]review hunk' })
 
 -- Blame (gitsigns)
 vim.keymap.set('n', '<leader>gb', function()
-  require('gitsigns').blame_line { full = true }
-end, { desc = '[G]it [B]lame line' })
+  require('gitsigns').blame()
+end, { desc = '[G]it [B]lame buffer' })
 
--- Fugitive
-vim.keymap.set('n', '<leader>gg', '<cmd>Git<cr>', { desc = '[G]it Status' })
+-- Neogit
+vim.keymap.set('n', '<leader>gg', '<cmd>Neogit<cr>', { desc = '[G]it Status (Neo[g]it)' })
 
 -- Normal-mode keymap. Uses current buffer to configure keymaps only for certain filetypes.
 local nmap = function(bufnr, keys, func, desc)
