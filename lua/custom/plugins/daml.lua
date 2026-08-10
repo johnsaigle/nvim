@@ -33,17 +33,6 @@ return {
       vim.notify('daml.nvim: dpm is not executable from Neovim PATH', vim.log.levels.WARN)
     end
 
-    -- Homebrew's JDK is not registered with macOS's /usr/bin/java launcher.
-    -- multi-ide starts a Java-backed Script Service, so give its subprocess a
-    -- working JDK even when Neovim was started outside a configured shell.
-    local java_home = '/opt/homebrew/opt/openjdk'
-    if vim.fn.executable(java_home .. '/bin/java') == 1 then
-      vim.env.JAVA_HOME = java_home
-      if not vim.env.PATH:find(java_home .. '/bin', 1, true) then
-        vim.env.PATH = java_home .. '/bin:' .. vim.env.PATH
-      end
-    end
-
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     local ok, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
     if ok then
@@ -55,11 +44,34 @@ return {
     -- DPM's DAML multi-IDE server does not support semantic tokens.
     capabilities.textDocument.semanticTokens = nil
 
+    local cmd = { 'dpm', 'damlc', 'ide', '--scripts', 'no' }
+
     return {
       lsp = {
-        -- multi-ide enables Daml Script/CodeLens support in addition to the
-        -- hover, definition, completion, and diagnostics from `damlc ide`.
-        cmd = { 'dpm', 'damlc', 'multi-ide' },
+        -- damlc resolves daml.yaml and its generated package database relative
+        -- to its process cwd. daml.nvim sets root_dir but does not set cmd_cwd,
+        -- so launching Neovim elsewhere can make damlc fall back to LF 2.2 and
+        -- look for a nonexistent .daml/package-database/2.2. Start one client
+        -- per nearest daml.yaml and explicitly run it from that package root.
+        -- Do not add multi-package.yaml here: its parent directory has no
+        -- package database of its own, and its packages may target different
+        -- LF versions or maintain separate generated dependencies.
+        root_markers = { 'daml.yaml' },
+        -- The DPM SDK 3.5.1 artifact repeatedly installs a truncated
+        -- script-service.jar, causing both `multi-ide` and the default `ide`
+        -- mode to exit before LSP navigation becomes available. Disable only
+        -- Daml Script execution/CodeLens; definitions, hover, completion, and
+        -- diagnostics continue to work. This flag can be removed after the
+        -- project SDK is upgraded and its script-service.jar passes `jar tf`.
+        cmd = function(dispatchers, config)
+          -- A function command is required because cmd_cwd is package-specific;
+          -- daml.nvim currently forwards cmd but not cmd_cwd to Neovim's client.
+          return vim.lsp.rpc.start(cmd, dispatchers, {
+            cwd = config.root_dir,
+            env = config.cmd_env,
+            detached = config.detached,
+          })
+        end,
         capabilities = capabilities,
       },
     }
