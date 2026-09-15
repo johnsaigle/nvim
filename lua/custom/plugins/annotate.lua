@@ -2,7 +2,6 @@ return {
   -- Annotate.nvim - Security audit notes
   {
     "johnsaigle/annotate.nvim",          -- Update to your actual repo path
-    -- dir = "~/coding/annotate.nvim", -- Point to local directory
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local annotate = require('annotate')
