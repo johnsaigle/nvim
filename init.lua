@@ -281,7 +281,6 @@ local servers = {
   -- Use `:!which rust-analyzer` and make sure it's NOT installed by Mason.
   rust_analyzer = {},
   yamlls = {},
-  -- solidity_ls = {},
 
   -- NOTE: fka. tsserver
   ts_ls = {},
@@ -313,6 +312,17 @@ local servers = {
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+-- Manage this separately from Mason. This server indexes Foundry projects and
+-- returns cross-file references; install it with `npm install -g vscode-solidity-server`.
+vim.lsp.config('solidity_ls', {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  cmd = { 'vscode-solidity-server', '--stdio' },
+  filetypes = { 'solidity' },
+  root_markers = { 'foundry.toml', 'remappings.txt', 'hardhat.config.js', 'hardhat.config.ts', 'truffle-config.js', '.git' },
+})
+vim.lsp.enable('solidity_ls')
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
