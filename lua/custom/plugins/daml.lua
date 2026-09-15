@@ -20,7 +20,9 @@ return {
             vim.keymap.set('n', keys, func, { buffer = args.buf, desc = 'LSP: ' .. desc })
           end
 
-          nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+           -- damlc ide returns declaration docs, but currently omits field-level
+           -- Haddock comments (`-- ^`) from hover results.
+           nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
           nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
           nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
